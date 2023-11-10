@@ -5,7 +5,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between tablet: mx-20">
           <div className="flex items-center">
             <a href="/" className="text-white text-2xl font-semibold">
-              Your Logo
+              Touch Grass
             </a>
           </div>
           <div className="flex space-x-20">

@@ -2,7 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../Pages/Home";
 import Forums from "../Pages/Forums";
 import Cafe from "../Pages/Cafe";
-import Login from "../Components/Login";
+import Login from "../Pages/Login";
+import Registration from "../Pages/Registration";
 import MainTemplate from "../Templates/MainTemplate";
 
 export default function AppRouter() {
@@ -15,6 +16,7 @@ export default function AppRouter() {
           <Route path="/Cafe" element={<Cafe />} />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/Register" element={<Registration />} />
       </Routes>
     </BrowserRouter>
   );
