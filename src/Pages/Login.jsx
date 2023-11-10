@@ -7,6 +7,9 @@ export default function Login() {
     password: "",
   });
 
+  // Add the 'loading' state
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -17,18 +20,26 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Set 'loading' to true when starting the login process
+    setLoading(true);
+
     try {
       // Make a POST request to your PHP login endpoint
       const response = await axios.post("http://localhost/login.php", formData);
 
-      // Handle the response as needed (e.g., show success message)
+      // Handle the response
       console.log("Login successful:", response.data);
+
+      // Add logic to redirect or update UI on successful login
     } catch (error) {
-      // Handle login error (e.g., show error message)
+      // Handle login error
       console.error(
         "Login error:",
         error.response ? error.response.data.error : "Login failed"
       );
+    } finally {
+      // Set 'loading' back to false when the login process is complete
+      setLoading(false);
     }
   };
 
@@ -73,8 +84,9 @@ export default function Login() {
         <button
           type="submit"
           className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          disabled={loading}
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
     </div>
