@@ -25,7 +25,7 @@ export default function RegistrationForm() {
     try {
       // Make a POST request to your PHP registration endpoint
       const response = await axios.post(
-        "http://localhost/registration.php",
+        "http://localhost:5174/registration.php",
         formData
       );
 
