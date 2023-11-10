@@ -7,6 +7,9 @@ export default {
       tablet: "720px",
       laptop: "1024px",
     },
+    colors: {
+      orange:"#EE6811",
+    },
 
     extend: {},
   },
