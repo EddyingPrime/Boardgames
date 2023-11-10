@@ -1,22 +1,22 @@
 export default function Navbar() {
   return (
     <>
-      <nav className="bg-white border p-4">
-        <div className="flex items-center justify-between tablet: mx-20">
-          <div className="flex items-center -ml-10">
-            <img src="src/assets/logo.png" alt="" />
-          </div>
+     <nav className="bg-white border p-4">
+      <div className="container mx-auto flex items-center justify-between">
+        <div className="flex items-center">
+          <img src="src/assets/logo.png" alt="Logo" className="h-8" />
+        </div>
           <div className="flex space-x-20">
-            <a href="/" className="text-orange">
+            <a href="/" className="text-orange hover:underline">
               Home
             </a>
-            <a href="/games" className="text-orange">
+            <a href="/games" className="text-orange hover:underline">
               Games
             </a>
-            <a href="/cafe" className="text-orange">
+            <a href="/cafe" className="text-orange hover:underline">
               Cafe
             </a>
-            <a href="/forums" className="text-orange">
+            <a href="/forums" className="text-orange hover:underline">
               Forum
             </a>
           </div>
