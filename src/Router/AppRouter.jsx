@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../Pages/Home";
 import Forums from "../Pages/Forums";
+import Games from "../Pages/Games";
 import Cafe from "../Pages/Cafe";
 import Login from "../Pages/Login";
 import Registration from "../Pages/Registration";
@@ -13,6 +14,7 @@ export default function AppRouter() {
         <Route element={<MainTemplate />}>
           <Route path="/" element={<Home />} />
           <Route path="/Forums" element={<Forums />} />
+          <Route path="/Games" element={<Games />} />
           <Route path="/Cafe" element={<Cafe />} />
         </Route>
         <Route path="/login" element={<Login />} />
