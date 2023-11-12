@@ -43,18 +43,18 @@ export default function Footer() {
             <div className="text-black text-2xl font-semibold self-center">
               Question us
             </div>
-            <input className="border text-black text-base bg-gray rounded bg-white mt-4 px-4 py-4 w-[50%]"
+            <input className="border text-black text-base rounded bg-white mt-4 px-4 py-4 w-[50%]"
             type="text"
             name="name"
             placeholder="Name"
           />
         
-        <input className="border text-black text-base bg-gray rounded bg-white mt-4 px-4 py-4 w-[50%]"
+        <input className="border text-black text-base rounded bg-white mt-4 px-4 py-4 w-[50%]"
             type="tel"
             name="telephone"
             placeholder="Telephone"
           />
-            <input className="border text-black text-base bg-gray rounded bg-white mt-4 px-4 py-4 w-[50%]"
+            <input className="border text-black text-base rounded bg-white mt-4 px-4 py-4 w-[50%]"
             type="email"
             name="email"
             placeholder="Email"

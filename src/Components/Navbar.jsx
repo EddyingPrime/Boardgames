@@ -4,7 +4,7 @@ export default function Navbar() {
      <nav className="bg-white border p-4">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
-          <img src="src/assets/logo.png" alt="Logo" />
+          <img src="src/assets/logo.png" alt="Logo"/>
         </div>
         <div className="flex space-x-4 md:space-x-20">
             <a href="/" className="text-orange hover:underline">
@@ -21,7 +21,7 @@ export default function Navbar() {
             </a>
           </div>
           <div className="space-x-4">
-            <a href="/login" className="text-white text-lg font-medium whitespace-nowrap justify-center items-center rounded px-5 py-2 border">
+            <a href="/login" className="text-white bg-orange text-lg font-medium whitespace-nowrap justify-center items-center rounded px-5 py-2 border">
               Log In
             </a>
             <a href="/register" className="text-white text-center text-lg font-medium whitespace-nowrap justify-center items-center rounded bg-orange px-5 py-2 border">
