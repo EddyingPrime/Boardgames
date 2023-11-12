@@ -4,9 +4,9 @@ export default function Navbar() {
      <nav className="bg-white border p-4">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
-          <img src="src/assets/logo.png" alt="Logo" className="h-8" />
+          <img src="src/assets/logo.png" alt="Logo" />
         </div>
-          <div className="flex space-x-20">
+        <div className="flex space-x-4 md:space-x-20">
             <a href="/" className="text-orange hover:underline">
               Home
             </a>
