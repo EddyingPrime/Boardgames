@@ -5,21 +5,34 @@ import Games from "../Pages/Games";
 import Cafe from "../Pages/Cafe";
 import Login from "../Pages/Login";
 import Registration from "../Pages/Registration";
-import MainTemplate from "../Templates/MainTemplate";
+import Profile from "../Pages/Profile";
+import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
+import { AuthProvider } from "../authentication/UseAuth";
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<MainTemplate />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/Forums" element={<Forums />} />
-          <Route path="/Games" element={<Games />} />
-          <Route path="/Cafe" element={<Cafe />} />
-        </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/Register" element={<Registration />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route
+            path="*"
+            element={[
+              <Navbar key="navbar" />,
+              <Routes key="routes">
+                <Route index element={<Home />} />
+                <Route path="/forums" element={<Forums />} />
+                <Route path="/games" element={<Games />} />
+                <Route path="/cafe" element={<Cafe />} />
+              </Routes>,
+              <Footer key="Footer" />,
+            ]}
+          />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

@@ -1,7 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
+import { UseAuth } from "../authentication/UseAuth";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const { login } = UseAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -33,7 +37,10 @@ export default function Login() {
       // Handle the response
       console.log("Login successful:", response.data);
 
-      // Add logic to redirect or update UI on successful login
+      // Call the login function from the AuthContext if using context
+      login();
+
+      navigate("/");
     } catch (error) {
       // Handle login error
       console.error(
