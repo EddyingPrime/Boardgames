@@ -25,7 +25,10 @@ export default function Login() {
 
     try {
       // Make a POST request to your PHP login endpoint
-      const response = await axios.post("http://localhost/login.php", formData);
+      const response = await axios.post(
+        "http://localhost:8000/api/login",
+        formData
+      );
 
       // Handle the response
       console.log("Login successful:", response.data);
@@ -83,7 +86,7 @@ export default function Login() {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          className="w-full text-white p-2 rounded-md hover: bg-orange"
           disabled={loading}
         >
           {loading ? "Logging in..." : "Login"}

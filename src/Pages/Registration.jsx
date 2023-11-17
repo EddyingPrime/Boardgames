@@ -1,15 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function RegistrationForm() {
+const RegistrationForm = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
   });
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+
+  useEffect(() => {
+    const storedFormData = JSON.parse(
+      localStorage.getItem("registrationFormData")
+    );
+    if (storedFormData) {
+      setFormData(storedFormData);
+    }
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -18,30 +28,51 @@ export default function RegistrationForm() {
     });
   };
 
+  const clearMessages = () => {
+    setSuccessMessage(null);
+    setError(null);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    clearMessages();
 
     try {
-      // Make a POST request to your PHP registration endpoint
+      const csrfToken = document.head.querySelector(
+        'meta[name="csrf-token"]'
+      ).content;
+      axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
+
       const response = await axios.post(
-        "http://localhost:5174/registration.php",
+        "http://localhost:8000/api/register",
         formData
       );
 
-      // Handle the response
-      setSuccessMessage(response.data.message);
-      setError(null);
+      if (response.data.success) {
+        setSuccessMessage("Registration successful");
+        setError(null);
+        // Clear form data in local storage upon successful registration
+        localStorage.removeItem("registrationFormData");
+      } else {
+        setSuccessMessage(null);
+        setError("Registration failed. Please check your information.");
+      }
     } catch (error) {
-      // Handle registration error
       setSuccessMessage(null);
       setError(
         error.response ? error.response.data.error : "Registration failed"
       );
+      console.error(error);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    // Save form data to local storage whenever it changes
+    localStorage.setItem("registrationFormData", JSON.stringify(formData));
+  }, [formData]);
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
@@ -59,16 +90,16 @@ export default function RegistrationForm() {
         )}
         <div className="mb-4">
           <label
-            htmlFor="username"
+            htmlFor="name"
             className="block text-gray-600 text-sm font-medium mb-2"
           >
-            Username
+            Name
           </label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={formData.username}
+            id="name"
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
             required
@@ -110,7 +141,7 @@ export default function RegistrationForm() {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          className="w-full bg-orange text-white p-2 rounded-md"
           disabled={loading}
         >
           {loading ? "Registering..." : "Register"}
@@ -118,4 +149,6 @@ export default function RegistrationForm() {
       </form>
     </div>
   );
-}
+};
+
+export default RegistrationForm;
