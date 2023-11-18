@@ -20,6 +20,9 @@ const Navbar = () => {
           <Link to="/cafe" className="text-orange hover:underline">
             Cafe
           </Link>
+          <Link to="/add" className="text-orange hover:underline">
+            Cafe
+          </Link>
           <Link to="/forums" className="text-orange hover:underline">
             Forum
           </Link>
