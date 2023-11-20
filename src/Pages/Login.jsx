@@ -26,21 +26,28 @@ export default function Login() {
     setLoading(true);
 
     try {
+      const csrfToken = document.head.querySelector(
+        'meta[name="csrf-token"]'
+      ).content;
+      axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
+
       const response = await axios.post(
         "http://localhost:8000/api/login",
         formData
       );
 
-      console.log("Login successful:", response.data);
+      console.log("Login response:", response.data);
 
-      login();
-      navigate("/");
+      if (response.data.success) {
+        console.log("Login successful!");
+        login("/");
+        navigate("/");
+      } else {
+        setError("Invalid email or password. Please try again.");
+      }
     } catch (error) {
-      console.error(
-        "Login error:",
-        error.response ? error.response.data.error : "Login failed"
-      );
-      setError("Invalid email or password. Please try again."); // Set a user-friendly error message
+      console.error("Login error:", error.response || error);
+      setError("An unexpected error occurred. Please try again.");
     } finally {
       setLoading(false);
     }

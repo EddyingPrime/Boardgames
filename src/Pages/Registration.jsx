@@ -7,6 +7,7 @@ const RegistrationForm = () => {
     name: "",
     email: "",
     password: "",
+    password_confirmation: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -14,15 +15,6 @@ const RegistrationForm = () => {
   const [successMessage, setSuccessMessage] = useState(null);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const storedFormData = JSON.parse(
-      localStorage.getItem("registrationFormData")
-    );
-    if (storedFormData) {
-      setFormData(storedFormData);
-    }
-  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -47,7 +39,10 @@ const RegistrationForm = () => {
       ).content;
       axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
 
-      const response = await axios.post("", formData);
+      const response = await axios.post(
+        "http://localhost:8000/api/register",
+        formData
+      );
 
       if (response.data.success) {
         setSuccessMessage("Registration successful");
@@ -56,12 +51,16 @@ const RegistrationForm = () => {
         localStorage.removeItem("registrationFormData");
       } else {
         setSuccessMessage(null);
-        setError("Registration failed. Please check your information.");
+        if (response.data.error) {
+          setError(response.data.error); // Display specific error message
+        } else {
+          setError("Registration failed. Please check your information.");
+        }
       }
     } catch (error) {
       setSuccessMessage(null);
       setError(
-        error.response ? error.response.data.error : "Registration failed"
+        error.response ? error.response.data.message : "Registration failed"
       );
       console.error(error);
     } finally {
@@ -134,6 +133,23 @@ const RegistrationForm = () => {
             id="password"
             name="password"
             value={formData.password}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-orange"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="password_confirmation"
+            className="block text-gray-600 text-sm font-medium mb-2"
+          >
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            id="password_confirmation"
+            name="password_confirmation"
+            value={formData.password_confirmation}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-orange"
             required
