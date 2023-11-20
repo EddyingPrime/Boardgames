@@ -1,51 +1,54 @@
 import { useState } from "react";
+import CommentForm from "./CommentForm";
 
-const ThreadDetail = ({ match }) => {
-  const { forumId, threadId } = match.params;
+const ThreadDetails = ({ thread }) => {
+  const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState([]);
-  const [reactionCount, setReactionCount] = useState(0);
+  const [upvotes, setUpvotes] = useState(0);
 
-  const handleAddComment = (comment) => {
-    setComments([...comments, comment]);
+  const handleCommentSubmit = (newComment) => {
+    setComments([...comments, newComment]);
   };
 
-  const handleReact = () => {
-    setReactionCount(reactionCount + 1);
+  const handleUpvote = () => {
+    // Increment the upvote count
+    setUpvotes(upvotes + 1);
   };
 
   return (
-    <div className="container mx-auto mt-8">
-      <h1 className="text-4xl font-bold mb-4">
-        Thread {threadId} in Forum {forumId}
-      </h1>
-      <p className="mb-2">Reactions: {reactionCount}</p>
+    <div className="bg-white border p-4 mb-4 rounded-md shadow-md">
+      <h3 className="text-xl font-bold mb-2">{thread.title}</h3>
+      <p className="text-gray-700">{thread.content}</p>
+
       <button
-        onClick={handleReact}
-        className="bg-blue-500 text-white px-4 py-2 rounded"
+        onClick={handleUpvote}
+        className="text-orange mt-2 underline cursor-pointer"
       >
-        React
+        Upvote ({upvotes})
       </button>
-      <h2 className="text-2xl font-bold mt-4 mb-2">Comments</h2>
-      <ul className="list-disc pl-4">
-        {comments.map((comment, index) => (
-          <li key={index} className="mb-2">
-            {comment}
-          </li>
-        ))}
-      </ul>
-      <textarea
-        placeholder="Add a comment..."
-        onChange={(e) => setCommentText(e.target.value)}
-        className="w-full mt-4 p-2 border rounded"
-      />
+
       <button
-        onClick={() => handleAddComment(commentText)}
-        className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
+        onClick={() => setShowComments(!showComments)}
+        className="text-orange ml-4 underline cursor-pointer"
       >
-        Add Comment
+        {showComments ? "Hide Comments" : "Show Comments"}
       </button>
+
+      {showComments && (
+        <>
+          {/* Display existing comments */}
+          {comments.map((comment, index) => (
+            <div key={index} className="mt-2">
+              {comment}
+            </div>
+          ))}
+
+          {/* Comment form */}
+          <CommentForm onSubmit={handleCommentSubmit} />
+        </>
+      )}
     </div>
   );
 };
 
-export default ThreadDetail;
+export default ThreadDetails;

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { UseAuth } from "../authentication/UseAuth";
-import DropdownMenu from "./Dropdown";
+import logo from "../assets/logo.png"; // Import the logo image
 
 const Navbar = () => {
   const { isAuthenticated, logout } = UseAuth();
@@ -9,7 +9,8 @@ const Navbar = () => {
     <nav className="bg-white border p-4">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
-          <img src="src/assets/logo.png" alt="Logo" />
+          {/* Use the imported logo image */}
+          <img src={logo} alt="Logo" />
         </div>
         <div className="flex space-x-4 md:space-x-20">
           <Link to="/" className="text-orange hover:underline">

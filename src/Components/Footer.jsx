@@ -8,26 +8,26 @@ import linkedin from "../assets/linkedin.png";
 
 const Footer = () => {
   return (
-    <div className="border bg-white flex flex-wrap justify-between items-start px-5 py-10 border-solid border-black">
+    <div className="border bg-white flex flex-wrap justify-between items-start px-10 py-10 border-solid border-black">
       <div className="flex flex-col items-start">
-        <img src={logo} alt="Logo" className="w-full max-w-md mb-4" />
+        <img src={logo} alt="Logo" className="w-36 mb-4" />
         <div className="flex flex-col items-start">
           <div className="text-black text-base font-semibold">
             Board Games and Cafes
           </div>
-          <div className="text-black text-base mt-2">Lorem</div>
+          <div className="text-black text-base mt-2"></div>
         </div>
         <div className="flex flex-col mt-4">
           <div className="flex items-center gap-2">
-            <img src={pin} alt="Pin" className="w-6 max-w-full" />
+            <img src={pin} alt="Pin" className="w-6 h-6 max-w-full" />
             <div className="text-black text-base">Address</div>
           </div>
           <div className="flex items-center gap-2 mt-3">
-            <img src={email} alt="Email" className="w-6 max-w-full" />
+            <img src={email} alt="Email" className="w-6 h-6 max-w-full" />
             <div className="text-black text-base">Email</div>
           </div>
           <div className="flex items-center gap-2 mt-3">
-            <img src={phone} alt="Phone" className="w-6 max-w-full" />
+            <img src={phone} alt="Phone" className="w-6 h-6 max-w-full" />
             <div className="text-black text-base">Contact No</div>
           </div>
         </div>
@@ -80,9 +80,9 @@ const Footer = () => {
           Contact Us
         </button>
         <div className="flex items-center gap-2 mt-4">
-          <img src={facebook} alt="Facebook" className="w-10 max-w-full" />
-          <img src={twitter} alt="Twitter" className="w-10 max-w-full" />
-          <img src={linkedin} alt="LinkedIn" className="w-10 max-w-full" />
+          <img src={facebook} alt="Facebook" className="w-10 h-10 max-w-full" />
+          <img src={twitter} alt="Twitter" className="w-10 h-10 max-w-full" />
+          <img src={linkedin} alt="LinkedIn" className="w-10 h-10 max-w-full" />
         </div>
       </div>
     </div>
