@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,8 @@ const RegistrationForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedFormData = JSON.parse(
@@ -98,7 +101,7 @@ const RegistrationForm = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-orange"
             required
           />
         </div>
@@ -115,7 +118,7 @@ const RegistrationForm = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-orange"
             required
           />
         </div>
@@ -132,17 +135,30 @@ const RegistrationForm = () => {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-orange"
             required
           />
         </div>
         <button
           type="submit"
-          className="w-full bg-orange text-white p-2 rounded-md"
+          className={`w-full bg-orange text-white p-2 rounded-md ${
+            loading ? "opacity-50 cursor-not-allowed" : "hover:bg-orange-600"
+          }`}
           disabled={loading}
         >
           {loading ? "Registering..." : "Register"}
         </button>
+        <div className="mt-4 text-center text-sm">
+          <p>
+            Already registered?{" "}
+            <span
+              className="text-orange hover:underline cursor-pointer"
+              onClick={() => navigate("/login")}
+            >
+              Login here
+            </span>
+          </p>
+        </div>
       </form>
     </div>
   );

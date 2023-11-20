@@ -11,8 +11,8 @@ export default function Login() {
     password: "",
   });
 
-  // Add the 'loading' state
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     setFormData({
@@ -23,32 +23,25 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Set 'loading' to true when starting the login process
     setLoading(true);
 
     try {
-      // Make a POST request to your PHP login endpoint
       const response = await axios.post(
         "http://localhost:8000/api/login",
         formData
       );
 
-      // Handle the response
       console.log("Login successful:", response.data);
 
-      // Call the login function from the AuthContext if using context
       login();
-
       navigate("/");
     } catch (error) {
-      // Handle login error
       console.error(
         "Login error:",
         error.response ? error.response.data.error : "Login failed"
       );
+      setError("Invalid email or password. Please try again."); // Set a user-friendly error message
     } finally {
-      // Set 'loading' back to false when the login process is complete
       setLoading(false);
     }
   };
@@ -57,6 +50,7 @@ export default function Login() {
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
       <h2 className="text-2xl font-semibold mb-4">Login</h2>
       <form onSubmit={handleSubmit}>
+        {error && <div className="text-red-500 mb-4">{error}</div>}
         <div className="mb-4">
           <label
             htmlFor="email"
@@ -70,7 +64,7 @@ export default function Login() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-orange"
             required
           />
         </div>
@@ -87,17 +81,28 @@ export default function Login() {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-orange"
             required
           />
         </div>
         <button
           type="submit"
-          className="w-full text-white p-2 rounded-md hover: bg-orange"
+          className="w-full text-white p-2 rounded-md bg-orange hover:bg-orange-600"
           disabled={loading}
         >
           {loading ? "Logging in..." : "Login"}
         </button>
+        <div className="mt-4 text-center text-sm">
+          <p>
+            Not registered yet?{" "}
+            <span
+              className="text-orange hover:underline cursor-pointer"
+              onClick={() => navigate("/register")}
+            >
+              Register here
+            </span>
+          </p>
+        </div>
       </form>
     </div>
   );
