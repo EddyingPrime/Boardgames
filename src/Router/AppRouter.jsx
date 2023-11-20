@@ -9,7 +9,6 @@ import Profile from "../Pages/Profile";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { AuthProvider } from "../authentication/UseAuth";
-import ADD from "../Pages/addgames";
 
 export default function AppRouter() {
   return (
@@ -22,10 +21,9 @@ export default function AppRouter() {
               <Navbar key="navbar" />,
               <Routes key="routes">
                 <Route index element={<Home />} />
-                <Route path="/forums" element={<Forums />} />
+                <Route path="/forums/*" element={<Forums />} />
                 <Route path="/games" element={<Games />} />
                 <Route path="/cafe" element={<Cafe />} />
-                <Route path="/add" element={<ADD />} />
               </Routes>,
               <Footer key="Footer" />,
             ]}

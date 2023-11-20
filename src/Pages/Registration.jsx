@@ -44,10 +44,7 @@ const RegistrationForm = () => {
       ).content;
       axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
 
-      const response = await axios.post(
-        "http://localhost:8000/api/register",
-        formData
-      );
+      const response = await axios.post("", formData);
 
       if (response.data.success) {
         setSuccessMessage("Registration successful");

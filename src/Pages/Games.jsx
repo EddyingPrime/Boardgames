@@ -10,7 +10,7 @@ const Games = () => {
   useEffect(() => {
     // Fetch board games data from your API
     axios
-      .get("http://localhost:8000/api/boardgames")
+      .get("")
       .then((response) => {
         setBoardGames(response.data);
       })

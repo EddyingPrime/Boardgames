@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { UseAuth } from "../authentication/UseAuth";
+import DropdownMenu from "./Dropdown";
 
 const Navbar = () => {
   const { isAuthenticated, logout } = UseAuth();
@@ -18,9 +19,6 @@ const Navbar = () => {
             Games
           </Link>
           <Link to="/cafe" className="text-orange hover:underline">
-            Cafe
-          </Link>
-          <Link to="/add" className="text-orange hover:underline">
             Cafe
           </Link>
           <Link to="/forums" className="text-orange hover:underline">
