@@ -47,7 +47,12 @@ const RegistrationForm = () => {
       if (response.data.success) {
         setSuccessMessage("Registration successful");
         setError(null);
-        // Clear form data in local storage upon successful registration
+        setFormData({
+          name: "",
+          email: "",
+          password: "",
+          password_confirmation: "",
+        });
         localStorage.removeItem("registrationFormData");
       } else {
         setSuccessMessage(null);
@@ -166,7 +171,7 @@ const RegistrationForm = () => {
         </button>
         <div className="mt-4 text-center text-sm">
           <p>
-            Already registered?{" "}
+            Already registered?
             <span
               className="text-orange hover:underline cursor-pointer"
               onClick={() => navigate("/login")}
