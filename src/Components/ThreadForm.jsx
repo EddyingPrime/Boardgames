@@ -1,19 +1,51 @@
 import { useState } from "react";
+import axios from "axios";
+import { UseAuth } from "../authentication/UseAuth";
 
-const ThreadForm = ({ onSubmit }) => {
+export default function ThreadForm() {
+  const { authToken } = UseAuth();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validate input fields if needed
 
-    // Call the onSubmit prop with the thread details
-    onSubmit({ title, content });
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/threads",
+        {
+          title,
+          content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
 
-    // Clear form fields after submission
-    setTitle("");
-    setContent("");
+      console.log("Thread creation response:", response.data);
+
+      // Handle success as needed
+    } catch (error) {
+      console.error("Thread creation error:", error);
+
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        console.error("Response data:", error.response.data);
+        console.error("Response status:", error.response.status);
+        console.error("Response headers:", error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("No response received. Request:", error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error("Error setting up request:", error.message);
+      }
+
+      setError("An unexpected error occurred. Please try again.");
+    }
   };
 
   return (
@@ -21,34 +53,38 @@ const ThreadForm = ({ onSubmit }) => {
       onSubmit={handleSubmit}
       className="bg-white p-4 rounded shadow-md mb-4"
     >
-      <label
-        htmlFor="title"
-        className="block text-sm font-medium text-gray-700"
-      >
-        Title:
-      </label>
-      <input
-        type="text"
-        id="title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-orange"
-      />
+      <div className="mb-4">
+        <label
+          htmlFor="title"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Title:
+        </label>
+        <input
+          type="text"
+          id="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-orange"
+        />
+      </div>
 
-      <label
-        htmlFor="content"
-        className="block mt-4 text-sm font-medium text-gray-700"
-      >
-        Content:
-      </label>
-      <textarea
-        id="content"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        required
-        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-orange"
-      />
+      <div className="mb-4">
+        <label
+          htmlFor="content"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Content:
+        </label>
+        <textarea
+          id="content"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-orange"
+        />
+      </div>
 
       <button
         type="submit"
@@ -56,8 +92,8 @@ const ThreadForm = ({ onSubmit }) => {
       >
         Submit
       </button>
+
+      {error && <p className="text-red-500 mt-2">{error}</p>}
     </form>
   );
-};
-
-export default ThreadForm;
+}

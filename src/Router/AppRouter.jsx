@@ -24,11 +24,12 @@ export default function AppRouter() {
               <Route path="/games" element={<Games />} />
               <Route path="/cafe/*" element={<Cafe />} />
               <Route path="*" element={<NotFound />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>,
             <Footer key="Footer" />,
           ]}
         />
-        <Route path="/profile" element={<Profile />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
       </Routes>

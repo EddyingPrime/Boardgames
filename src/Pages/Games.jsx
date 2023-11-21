@@ -8,7 +8,6 @@ const Games = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    // Fetch board games data from your API
     axios
       .get("#")
       .then((response) => {
@@ -39,7 +38,6 @@ const Games = () => {
           key={product.id}
           className="bg-white p-1 rounded-lg shadow-md flex flex-col"
         >
-          {/* Adjust the image source based on your API response */}
           <div className="aspect-w-1 aspect-h-1 mb-4">
             <img
               src={`src/assets/${product.image}`}

@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 const Home = () => {
   // Sample data for featured games, recommended cafes, and top threads
   const featuredGames = [
-    { id: 1, title: "Game 1", image: "/path/to/game1.jpg" },
-    { id: 2, title: "Game 2", image: "/path/to/game2.jpg" },
+    { id: 1, title: "Game 1", image: "/" },
+    { id: 2, title: "Game 2", image: "/" },
     // Add more games as needed
   ];
 
   const recommendedCafes = [
-    { id: 1, name: "Cafe A", image: "/path/to/cafeA.jpg" },
-    { id: 2, name: "Cafe B", image: "/path/to/cafeB.jpg" },
+    { id: 1, name: "Cafe A", image: "/" },
+    { id: 2, name: "Cafe B", image: "/" },
     // Add more cafes as needed
   ];
 
