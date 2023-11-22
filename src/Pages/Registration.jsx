@@ -23,6 +23,11 @@ const RegistrationForm = () => {
     });
   };
 
+  useEffect(() => {
+    // Save form data to local storage whenever it changes
+    localStorage.setItem("registrationFormData", JSON.stringify(formData));
+  }, [formData]);
+
   const clearMessages = () => {
     setSuccessMessage(null);
     setError(null);
@@ -53,7 +58,6 @@ const RegistrationForm = () => {
           password: "",
           password_confirmation: "",
         });
-        localStorage.removeItem("registrationFormData");
       } else {
         setSuccessMessage(null);
         if (response.data.error) {
@@ -72,11 +76,6 @@ const RegistrationForm = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    // Save form data to local storage whenever it changes
-    localStorage.setItem("registrationFormData", JSON.stringify(formData));
-  }, [formData]);
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">

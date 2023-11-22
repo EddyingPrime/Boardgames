@@ -8,15 +8,19 @@ const Games = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    axios
-      .get("#")
-      .then((response) => {
-        setBoardGames(response.data);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/api/board-games"
+        );
+        setBoardGames(response.data.data); // Assuming the API response has a 'data' property
+      } catch (error) {
         console.error("Error fetching board games:", error);
-      });
-  }, []);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array to run the effect only once on component mount
 
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
@@ -45,7 +49,7 @@ const Games = () => {
               className="object-contain rounded-md"
             />
           </div>
-          <h2 className="text-xl font-semibold mb-2">{product.title}</h2>
+          <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
           <p className="text-gray-700 mb-2">{product.description}</p>
           <div className="flex space-x-4">
             <button className="bg-gray text-black px-4 py-2 rounded-md">

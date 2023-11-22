@@ -21,6 +21,10 @@ export default function Login() {
     });
   };
 
+  const saveToLocalStorage = (data) => {
+    localStorage.setItem("userData", JSON.stringify(data));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -39,6 +43,11 @@ export default function Login() {
       console.log("Login response:", response.data);
 
       if (response.data.success) {
+        console.log("Login successful!");
+        // Save relevant user data to local storage
+        saveToLocalStorage({
+          Data: response.data,
+        });
         console.log("Login successful!");
         login("/");
         navigate("/");

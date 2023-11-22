@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { UseAuth } from "../authentication/UseAuth"; // Adjust the import based on your actual implementation
 
 const Profile = () => {
-  const { isAuthenticated, csrfToken } = UseAuth(); // Adjust the usage based on your actual implementation
+  const { isAuthenticated, Token } = UseAuth(); // Adjust the usage based on your actual implementation
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -22,9 +22,13 @@ const Profile = () => {
       }
 
       try {
+        const csrfToken = document.head.querySelector(
+          'meta[name="csrf-token"]'
+        ).content;
+        axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
         const response = await axios.get("http://localhost:8000/api/profile", {
           headers: {
-            Authorization: `Bearer ${csrfToken}`,
+            Authorization: `Bearer ${Token}`,
           },
         });
         setUser(response.data.user);
@@ -36,7 +40,7 @@ const Profile = () => {
     };
 
     fetchData();
-  }, [isAuthenticated, navigate, csrfToken]);
+  }, [isAuthenticated, navigate, Token]);
 
   const handleEditClick = () => {
     setIsEditing(true);

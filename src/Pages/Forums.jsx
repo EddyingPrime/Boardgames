@@ -11,16 +11,12 @@ const Forums = () => {
 
   const handleThreadFormSubmit = (newThread) => {
     setThreads([...threads, newThread]);
-    // Additional logic to send new thread data to the server
   };
 
   const handleUpvote = (threadId) => {
     if (isAuthenticated) {
-      // Logic to handle upvote when user is authenticated
-      // You may want to send a request to the server to update the upvote count
       console.log(`Upvoting thread with ID: ${threadId}`);
     } else {
-      // Redirect to the login page if user is not authenticated
       navigate("/login");
     }
   };
