@@ -10,7 +10,7 @@ const image = [
 const NotFound = () => {
   return (
     <>
-    <div className="bg-orange-400 p-6">
+    <div className="bg-orange p-6">
       <div className="container mx-auto flex items-center justify-between">
         <div className="w-1/2">
           <div className="border border-gray-500 p-4">
@@ -65,7 +65,6 @@ const NotFound = () => {
             down as the draw pile. Flip the top card from the draw pile to start the discard pile.
           </p>
         </div>
-        {/* ... Other sections with similar structure */}
         <div>
           <h3 className="text-lg font-semibold mb-2">Winning</h3>
           <p className="mb-4">
