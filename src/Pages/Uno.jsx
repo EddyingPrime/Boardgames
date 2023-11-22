@@ -12,7 +12,7 @@ const image = [
 ];
 
 
-const NotFound = () => {
+const Uno = () => {
   return (
     <>
     <div className="bg-orange p-6">
@@ -89,4 +89,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default Uno;
