@@ -12,7 +12,7 @@ const Navbar = () => {
           {/* Use the imported logo image */}
           <img src={logo} alt="Logo" />
         </div>
-        <div className="flex space-x-4 md:space-x-20">
+        <div className="flex space-x-4 md:space-x-20 font-bold">
           <Link to="/" className="text-orange hover:underline">
             Home
           </Link>

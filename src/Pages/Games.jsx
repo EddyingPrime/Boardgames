@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const itemsPerPage = 12;
@@ -36,30 +36,26 @@ const Games = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-4">
+    <div className="container mx-auto p-4 grid laptop:grid-cols-4 tablet:grid-cols-3 phone:grid-cols-1 gap-4">
       {currentProducts.map((product) => (
         <div
           key={product.id}
-          className="bg-white p-1 rounded-lg shadow-md flex flex-col"
+          className="bg-white p-4 rounded-lg shadow-md flex flex-col"
         >
-          <div className="aspect-w-1 aspect-h-1 mb-4">
-            {/* Fetch image dynamically */}
+          <div className="mb-4">
             {product.image && (
               <img
                 src={`http://localhost:8000/uploads/${product.image}`}
                 alt={product.name}
-                className="object-contain rounded-md"
+                className="object-cover rounded-md h-40 w-full"
               />
             )}
           </div>
           <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
-          <p className="text-gray-700 mb-2">{product.description}</p>
-          <div className="flex space-x-4">
-            <button className="bg-gray text-black px-4 py-2 rounded-md">
+          <p className="my-2">{product.description}</p>
+          <div className="flex justify-center m-0 ">
+            <button className="bg-orange text-white px-4 py-2 rounded-md hover:bg-orange-dark">
               Explore
-            </button>
-            <button className="bg-orange text-black px-4 py-2 rounded-md">
-              Buy
             </button>
           </div>
         </div>
@@ -72,7 +68,7 @@ const Games = () => {
               key={page}
               onClick={() => handlePageChange(page)}
               className={`mx-2 px-3 py-1 rounded-md ${
-                currentPage === page ? "bg-orange" : "bg-black"
+                currentPage === page ? "bg-orange" : "bg-black text-white"
               }`}
             >
               {page}
