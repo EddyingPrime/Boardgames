@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const itemsPerPage = 12;
@@ -43,11 +43,14 @@ const Games = () => {
           className="bg-white p-1 rounded-lg shadow-md flex flex-col"
         >
           <div className="aspect-w-1 aspect-h-1 mb-4">
-            <img
-              src={`asset${product.image}.jpg`}
-              alt={product.name}
-              className="object-contain rounded-md"
-            />
+            {/* Fetch image dynamically */}
+            {product.image && (
+              <img
+                src={`http://localhost:8000/uploads/${product.image}`}
+                alt={product.name}
+                className="object-contain rounded-md"
+              />
+            )}
           </div>
           <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
           <p className="text-gray-700 mb-2">{product.description}</p>
