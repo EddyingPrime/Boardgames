@@ -44,7 +44,7 @@ const Games = () => {
         >
           <div className="aspect-w-1 aspect-h-1 mb-4">
             <img
-              src={`src/assets/${product.image}`}
+              src={`asset${product.image}.jpg`}
               alt={product.name}
               className="object-contain rounded-md"
             />
