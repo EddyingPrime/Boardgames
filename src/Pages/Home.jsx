@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
+import images1 from  "../assets/Uno.jpg"
 
 const Home = () => {
   // Sample data for featured games, recommended cafes, and top threads
   const featuredGames = [
-    { id: 1, title: "Game 1", image: "/" },
+    { id: 1, title: "Game 1", image: [images1] },
     { id: 2, title: "Game 2", image: "/" },
     // Add more games as needed
   ];
