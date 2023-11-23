@@ -39,7 +39,11 @@ const Home = () => {
           level. From classic strategy games to modern party favorites, we have
           it all. Whether you're a seasoned board gamer or just getting started,
           our curated selection promises endless hours of fun.
-          <h5 className="m-4">👫 Connect with Friends and Family</h5>
+        </p>
+        <span className="mb-8 font-bold">
+          👫 Connect with Friends and Family
+        </span>
+        <p className="mt-8 mb-4">
           Board games are best enjoyed with company! Invite your friends and
           family to join you in exciting game nights. Strengthen bonds, create
           lasting memories, and share laughter as you embark on thrilling board
