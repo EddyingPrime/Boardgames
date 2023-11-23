@@ -1,32 +1,53 @@
 import { useEffect, useState } from "react";
 
 const Profile = () => {
-  // State to store user data
   const [userObject, setUserObject] = useState(null);
+  const [avatarUrl, setAvatarUrl] = useState(null);
 
   useEffect(() => {
-    // Retrieve user data from localStorage
     const storedUserData = localStorage.getItem("userData");
 
-    // Check if user data exists
     if (storedUserData) {
       const parsedUserData = JSON.parse(storedUserData);
       setUserObject(parsedUserData.Data.user);
+
+      // Assume the API returns an object with an 'avatar_url' property
+      fetch("", {
+        method: "GET",
+        headers: {
+          // Add any headers required by your API
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Assuming the API response has an 'avatar_url' property
+          setAvatarUrl(data.avatar_url);
+        })
+        .catch((error) => {
+          console.error("Error fetching avatar:", error);
+        });
     }
-  }, []); // Empty dependency array to run only once on component mount
+  }, []);
 
   return (
     <div className="bg-gray min-h-screen p-8">
       <h1 className="text-4xl font-bold mb-4 text-orange">User Profile</h1>
       {userObject ? (
         <div className="bg-white p-4 rounded-md shadow-md">
-          <p className="text-gray-700">
-            <strong>ID:</strong> {userObject.id}
-          </p>
-          <p className="text-gray-700">
+          {avatarUrl ? (
+            <img
+              src={avatarUrl}
+              alt="User Avatar"
+              className="mb-4 rounded-full"
+            />
+          ) : (
+            <p>Loading avatar...</p>
+          )}
+          <p className="text-2xl">
             <strong>Name:</strong> {userObject.name}
           </p>
-          <p className="text-gray-700">
+          <p className="text-sm">
             <strong>Email:</strong> {userObject.email}
           </p>
           {/* Add more user information as needed */}
