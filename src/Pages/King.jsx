@@ -77,7 +77,7 @@ const Uno = () => {
           ))}
         </div>
       </div>
-      <div className="container mx-auto mt-8 px-4">
+      <div className="container mx-auto mt-8 px-4 mb-5">
         <div className="bg-white rounded-lg shadow-md p-6">
           <div>
             <h3 className="text-lg font-semibold mb-2">Objective</h3>
@@ -110,17 +110,17 @@ const Uno = () => {
             Remember, house rules can vary, so be sure to clarify any specific
             rules or variations before starting the game!
           </p>
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold mb-2">
-            Strategy and Variations
-          </h3>
-          <p className="mb-4">
-            "King of Tokyo" involves a mix of luck with dice rolling and
-            strategic decision-making regarding when to attack, heal, or pursue
-            victory points. Each monster's unique abilities can also influence
-            gameplay strategies.
-          </p>
+          <div>
+            <h3 className="text-lg font-semibold mb-2">
+              Strategy and Variations
+            </h3>
+            <p className="mb-4">
+              "King of Tokyo" involves a mix of luck with dice rolling and
+              strategic decision-making regarding when to attack, heal, or
+              pursue victory points. Each monster's unique abilities can also
+              influence gameplay strategies.
+            </p>
+          </div>
         </div>
       </div>
     </>
