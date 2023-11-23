@@ -10,9 +10,9 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between laptop:space-x-5 tablet:space-x-5 phone:space-x-1 gap-0">
         <div className="flex items-center">
           {/* Use the imported logo image */}
-          <img src={logo} alt="Logo" className="" />
+          <img src={logo} alt="Logo" />
         </div>
-        <div className="flex phone:space-x-1 gap-1 font-bold  tablet:space-x-5 text-lg">
+        <div className="flex font-bold phone:space-x-1 text-md gap-1 , tablet:space-x-5 text-lg">
           <Link to="/" className="text-orange hover:underline">
             Home
           </Link>
