@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import images1 from  "../assets/Uno.jpg"
+import images1 from "../assets/Uno.jpg";
 
 const Home = () => {
   // Sample data for featured games, recommended cafes, and top threads
@@ -24,9 +24,7 @@ const Home = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="container mx-auto p-8">
-        <h1 className="text-5xl font-bold mb-4 text-orange">
-          Welcome to My Website
-        </h1>
+        <h1 className="text-5xl font-bold mb-4 text-orange">Welcome</h1>
         <p className="text-gray-600 mb-8">
           Discover featured games, recommended cafes, and top discussions!
         </p>

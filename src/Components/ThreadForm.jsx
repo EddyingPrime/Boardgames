@@ -13,7 +13,7 @@ export default function ThreadForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/threads",
+        "http://localhost:8000/api/forums/threads",
         {
           title,
           content,

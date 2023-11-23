@@ -79,6 +79,12 @@ const RegistrationForm = () => {
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
+      <button
+        className="mb-4 text-white p-1 rounded-md bg-orange"
+        onClick={() => navigate("/")}
+      >
+        &#8592;
+      </button>
       <h2 className="text-2xl font-semibold mb-4">Register</h2>
       <form onSubmit={handleSubmit}>
         {error && (
@@ -169,8 +175,8 @@ const RegistrationForm = () => {
           {loading ? "Registering..." : "Register"}
         </button>
         <div className="mt-4 text-center text-sm">
-          <p>
-            Already registered?
+          <p className="space-x-2">
+            <span>Already registered?</span>
             <span
               className="text-orange hover:underline cursor-pointer"
               onClick={() => navigate("/login")}

@@ -64,6 +64,12 @@ export default function Login() {
 
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
+      <button
+        className="mb-4 text-white p-1 rounded-md bg-orange"
+        onClick={() => navigate("/")}
+      >
+        &#8592;
+      </button>
       <h2 className="text-2xl font-semibold mb-4">Login</h2>
       <form onSubmit={handleSubmit}>
         {error && <div className="text-red-500 mb-4">{error}</div>}
@@ -109,8 +115,8 @@ export default function Login() {
           {loading ? "Logging in..." : "Login"}
         </button>
         <div className="mt-4 text-center text-sm">
-          <p>
-            Not registered yet?{" "}
+          <p className="space-x-2">
+            <span>Not registered yet?</span>
             <span
               className="text-orange hover:underline cursor-pointer"
               onClick={() => navigate("/register")}
