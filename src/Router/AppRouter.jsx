@@ -9,6 +9,8 @@ import Profile from "../Pages/Profile";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import NotFound from "../Pages/NotFound";
+import Uno from "../Pages/Uno";
+import King from "../Pages/King";
 
 export default function AppRouter() {
   return (
@@ -25,6 +27,8 @@ export default function AppRouter() {
               <Route path="/cafe/*" element={<Cafe />} />
               <Route path="*" element={<NotFound />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/Uno" element={<Uno />} />
+              <Route path="/King" element={<King />} />
             </Routes>,
             <Footer key="Footer" />,
           ]}

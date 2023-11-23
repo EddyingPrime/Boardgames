@@ -8,7 +8,7 @@ const Unopage = () => {
       <div className="bg-orange p-6">
         <div className="container mx-auto flex items-center justify-between">
           <div className="w-1/2">
-            <div className="border border-gray-500 p-4">
+            <div className=" p-4">
               <img src={Uno} alt="" className="w-full h-30" />
             </div>
           </div>

@@ -11,10 +11,9 @@ const Cafe = () => {
 
         {/* Dropdown */}
         <div className="mb-4">
-          <label>Select a cafe:</label>
           <div className="flex space-x-4">
             {options.map((cafe) => (
-              <div key={cafe} className="flex-1">
+              <div key={cafe.id} className="flex-1">
                 <Link to={`/cafe/${cafe.id}`}>
                   <img
                     src={cafe.image}

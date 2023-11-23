@@ -24,7 +24,9 @@ const Footer = () => {
           </div>
           <div className="flex items-center gap-2 mt-3">
             <img src={email} alt="Email" className="w-6 h-6 max-w-full" />
-            <div className="text-black text-xl">TouchGrass@gmail.com</div>
+            <div className="text-black text-xl">
+              <a href="mailto:touchgrass012@gmail.com">TouchGrass@gmail.com</a>
+            </div>
           </div>
           <div className="flex items-center gap-2 mt-3">
             <img src={phone} alt="Phone" className="w-6 h-6 max-w-full" />
@@ -77,9 +79,36 @@ const Footer = () => {
           FAQs
         </button>
         <div className="flex items-center gap-2 mt-4">
-          <img src={facebook} alt="Facebook" className="w-10 h-10 max-w-full" />
-          <img src={twitter} alt="Twitter" className="w-10 h-10 max-w-full" />
-          <img src={linkedin} alt="LinkedIn" className="w-10 h-10 max-w-full" />
+          <a
+            href="
+www.facebook.com/louraine16"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={facebook}
+              alt="Facebook"
+              className="w-10 h-10 max-w-full"
+            />
+          </a>
+          <a
+            href="www.twitter.com/_loooreyn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={twitter} alt="Twitter" className="w-10 h-10 max-w-full" />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/yourlinkedinprofile"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={linkedin}
+              alt="LinkedIn"
+              className="w-10 h-10 max-w-full"
+            />
+          </a>
         </div>
       </div>
     </div>

@@ -1,13 +1,9 @@
 import { Link } from "react-router-dom";
 import images1 from "../assets/Uno.jpg";
+import images2 from "../assets/King.jpg";
 
 const Home = () => {
   // Sample data for featured games, recommended cafes, and top threads
-  const featuredGames = [
-    { id: 1, title: "Game 1", image: [images1] },
-    { id: 2, title: "Game 2", image: "/" },
-    // Add more games as needed
-  ];
 
   const recommendedCafes = [
     { id: 1, name: "Cafe A", image: "/" },
@@ -54,18 +50,12 @@ const Home = () => {
         <div className="mb-8">
           <h2 className="text-2xl font-bold mb-4">Featured Games</h2>
           <div className="flex space-x-4">
-            {featuredGames.map((game) => (
-              <div key={game.id} className="flex-1">
-                <Link to={`/games/${game.id}`}>
-                  <img
-                    src={game.image}
-                    alt={game.title}
-                    className="w-full h-32 object-cover mb-2 rounded"
-                  />
-                  <p className="text-gray-800 font-semibold">{game.title}</p>
-                </Link>
-              </div>
-            ))}
+            <Link to="/Uno">
+              <img src={images1} alt="Uno" className="h-60" />
+            </Link>
+            <Link to="/King">
+              <img src={images2} alt="Uno" className="h-60" />
+            </Link>
           </div>
         </div>
         <h2 className="text-2xl font-bold mb-4">
