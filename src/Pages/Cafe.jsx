@@ -1,9 +1,7 @@
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import ReservationPage from "../Components/ReservationPage";
 
 const Cafe = () => {
-  const [selectedOption, setSelectedOption] = useState("");
   const options = ["Cafe A", "Cafe B", "Cafe C"];
 
   return (
@@ -13,27 +11,21 @@ const Cafe = () => {
 
         {/* Dropdown */}
         <div className="mb-4">
-          <label
-            htmlFor="dropdown"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Select a cafe:
-          </label>
-          <select
-            id="dropdown"
-            value={selectedOption}
-            onChange={(e) => setSelectedOption(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-orange"
-          >
-            <option value="" disabled>
-              Select a cafe
-            </option>
-            {options.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
+          <label>Select a cafe:</label>
+          <div className="flex space-x-4">
+            {options.map((cafe) => (
+              <div key={cafe} className="flex-1">
+                <Link to={`/cafe/${cafe.id}`}>
+                  <img
+                    src={cafe.image}
+                    alt={cafe.name}
+                    className="w-full h-32 object-cover mb-2 rounded"
+                  />
+                  <p className="text-gray-800 font-semibold">{cafe.name}</p>
+                </Link>
+              </div>
             ))}
-          </select>
+          </div>
         </div>
 
         {/* React Router Route for Reservation Page */}
