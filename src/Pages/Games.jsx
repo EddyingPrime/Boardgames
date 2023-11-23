@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const itemsPerPage = 12;
+const itemsPerPage = 8;
 
 const Games = () => {
   const [boardGames, setBoardGames] = useState([]);
@@ -40,7 +40,7 @@ const Games = () => {
       {currentProducts.map((product) => (
         <div
           key={product.id}
-          className="bg-white p-4 rounded-lg shadow-md flex flex-col"
+          className="bg-white p-2 rounded-lg shadow-md card"
         >
           <div className="mb-4">
             {product.image && (
@@ -51,10 +51,10 @@ const Games = () => {
               />
             )}
           </div>
-          <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
-          <p className="my-2">{product.description}</p>
-          <div className="flex justify-center m-0 ">
-            <button className="bg-orange text-white px-4 py-2 rounded-md hover:bg-orange-dark">
+          <h2 className="text-xl font-semibold mb-0">{product.name}</h2>
+          <p className="text-sm mb-2">{product.description}</p>
+          <div className="flex justify-center mx-0 my-0">
+            <button className="bg-orange text-white px-4 py-2 rounded-md">
               Explore
             </button>
           </div>

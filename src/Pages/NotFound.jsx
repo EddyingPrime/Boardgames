@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Uno from  "../assets/Uno.jpg"
 import Uno1 from  "../assets/Uno1.jpg"
 import Uno2 from  "../assets/Uno2.jpg"
@@ -90,3 +91,8 @@ const NotFound = () => {
 };
 
 export default NotFound;
+=======
+export default function NotFound() {
+  return <div>NotFound</div>;
+}
+>>>>>>> 7b63a4fd76d2c570f5b1dd87a026abf350cbd4ff
