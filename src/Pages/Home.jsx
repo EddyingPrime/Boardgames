@@ -25,13 +25,30 @@ const Home = () => {
     <div className="bg-gray-100 min-h-screen">
       <div className="container mx-auto p-8">
         <h1 className="text-5xl font-bold mb-4 text-orange">Welcome</h1>
-        <p className="text-gray-600 mb-8">
-          Discover featured games, recommended cafes, and top discussions!
+        <p className="mb-8">
+          🎲 Are you ready to roll the dice and experience the joy of board
+          games? Look no further!{" "}
+          <span className="font-bold ">Touch Grass</span> is your ultimate
+          destination for all things board games and socialization.
+        </p>
+        <h2 className="text-2xl font-bold mb-4">
+          Discover the World of Board Games
+        </h2>
+        <p className="mb-8">
+          Explore a vast collection of board games for every taste and skill
+          level. From classic strategy games to modern party favorites, we have
+          it all. Whether you're a seasoned board gamer or just getting started,
+          our curated selection promises endless hours of fun.
+          <h5 className="m-4">👫 Connect with Friends and Family</h5>
+          Board games are best enjoyed with company! Invite your friends and
+          family to join you in exciting game nights. Strengthen bonds, create
+          lasting memories, and share laughter as you embark on thrilling board
+          game adventures together.
         </p>
 
         {/* Featured Games */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold mb-4">Featured Games</h2>
+          <h2 className="text-2xl font-bold mb-4">Featured Games</h2>
           <div className="flex space-x-4">
             {featuredGames.map((game) => (
               <div key={game.id} className="flex-1">
@@ -50,7 +67,7 @@ const Home = () => {
 
         {/* Recommended Cafes */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold mb-4">Recommended Cafes</h2>
+          <h2 className="text-2xl font-bold mb-4">Recommended Cafes</h2>
           <div className="flex space-x-4">
             {recommendedCafes.map((cafe) => (
               <div key={cafe.id} className="flex-1">
@@ -69,7 +86,7 @@ const Home = () => {
 
         {/* Top Threads with Comments */}
         <div>
-          <h2 className="text-3xl font-bold mb-4">Top Threads with Comments</h2>
+          <h2 className="text-2xl font-bold mb-4">Top Threads with Comments</h2>
           <ul className="space-y-4">
             {topThreads.map((thread) => (
               <li key={thread.id}>
