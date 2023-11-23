@@ -64,6 +64,14 @@ const Home = () => {
             ))}
           </div>
         </div>
+        <h2 className="text-2xl font-bold mb-4">
+          Schedule Ahead for Cafe Reservations
+        </h2>
+        <p className="mb-8">
+          Planning a special game night at one of our recommended cafes? Take
+          advantage of our reservation feature! Schedule ahead to secure your
+          spot and ensure an unforgettable gaming experience.
+        </p>
 
         {/* Recommended Cafes */}
         <div className="mb-8">

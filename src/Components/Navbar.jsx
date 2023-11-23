@@ -7,7 +7,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white border p-4 ">
-      <div className="container mx-auto flex items-center justify-between laptop:space-x-5 tablet:space-x-5 phone:space-x-1 gap-1">
+      <div className="container mx-auto flex items-center justify-between laptop:space-x-5 tablet:space-x-5 phone:space-x-1 gap-0">
         <div className="flex items-center">
           {/* Use the imported logo image */}
           <img src={logo} alt="Logo" className="" />
@@ -26,7 +26,7 @@ const Navbar = () => {
             Forum
           </Link>
         </div>
-        <div className="flex laptop:space-x-4 tablet:space-x-4 gap-3 phone:space-x-2">
+        <div className="flex laptop:space-x-4 tablet:space-x-4 phone:space-x-2 gap-0">
           {isAuthenticated ? (
             <>
               <Link
