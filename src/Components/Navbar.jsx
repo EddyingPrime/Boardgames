@@ -108,15 +108,15 @@ const Navbar = () => {
             </li>
           </ul>
           <ul className="mt-2">
-            <li className="hidden md:block">
-              <a href="#login" className="block text-orange ">
+            <li className="md:block">
+              <Link to="/login" className="block text-orange ">
                 Login
-              </a>
+              </Link>
             </li>
-            <li className="hidden md:block">
-              <a href="#register" className="block text-orange ">
+            <li className="md:block">
+              <Link to="register" className="block text-orange ">
                 Register
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
