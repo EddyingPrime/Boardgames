@@ -35,6 +35,8 @@ export default function Login() {
       ).content;
       axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
 
+      console.log("Login form data:", formData); // Log the form data being sent
+
       const response = await axios.post(
         "http://localhost:8000/api/login",
         formData
@@ -42,8 +44,7 @@ export default function Login() {
 
       console.log("Login response:", response.data);
 
-      if (response.data.success) {
-        console.log("Login successful!");
+      if (response.data.token) {
         // Save relevant user data to local storage
         saveToLocalStorage({
           Data: response.data,
