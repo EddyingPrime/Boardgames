@@ -1,59 +1,78 @@
 import { useEffect, useState } from "react";
+import { UseAuth } from "../authentication/UseAuth";
+import axios from "axios";
 
 const Profile = () => {
-  const [userObject, setUserObject] = useState(null);
-  const [avatarUrl, setAvatarUrl] = useState(null);
+  const { isAuthenticated, logout } = UseAuth();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const storedUserData = localStorage.getItem("userData");
+    const fetchUserProfile = async () => {
+      try {
+        const token = localStorage.getItem("AUTH_TOKEN");
+        if (!token) {
+          throw new Error("Authentication token not found");
+        }
 
-    if (storedUserData) {
-      const parsedUserData = JSON.parse(storedUserData);
-      setUserObject(parsedUserData.Data.user);
-
-      // Assume the API returns an object with an 'avatar_url' property
-      fetch("", {
-        method: "GET",
-        headers: {
-          // Add any headers required by your API
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Assuming the API response has an 'avatar_url' property
-          setAvatarUrl(data.avatar_url);
-        })
-        .catch((error) => {
-          console.error("Error fetching avatar:", error);
+        const response = await axios.get("http://localhost:8000/api/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
-    }
+
+        setUser(response.data.user);
+      } catch (error) {
+        console.error(error);
+        setError(
+          error.response
+            ? error.response.data
+            : { message: "Error fetching user profile" }
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUserProfile();
   }, []);
 
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error && error.message === "Unauthenticated.") {
+    // Token might be invalid or expired. Log out the user.
+    logout();
+    return <p>You are not authenticated. Please log in again.</p>;
+  }
+
+  if (error) {
+    return <p>{error.message}</p>;
+  }
+
   return (
-    <div className="bg-gray min-h-screen p-8">
-      <h1 className="text-4xl font-bold mb-4 text-orange">User Profile</h1>
-      {userObject ? (
-        <div className="bg-white p-4 rounded-md shadow-md">
-          {avatarUrl ? (
-            <img
-              src={avatarUrl}
-              alt="User Avatar"
-              className="mb-4 rounded-full"
-            />
-          ) : (
-            <p>Loading avatar...</p>
-          )}
-          <p className="text-2xl">
-            <strong>Name:</strong> {userObject.name}
-          </p>
-          <p className="text-sm">
-            <strong>Email:</strong> {userObject.email}
-          </p>
-          {/* Add more user information as needed */}
+    <div className="max-w-3xl mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
+      {isAuthenticated && user ? (
+        <div>
+          <h2 className="text-3xl font-semibold mb-4">Welcome, {user.name}!</h2>
+          <div className="flex items-center mb-4">
+            {user.profile_image && (
+              <img
+                src={user.profile_image}
+                alt={`${user.name}'s profile`}
+                className="rounded-full h-16 w-16 object-cover mr-4"
+              />
+            )}
+            <div>
+              <p className="text-lg">{user.email}</p>
+              {/* Add more user details as needed */}
+            </div>
+          </div>
+          {/* Add more sections or details about the user's profile */}
         </div>
       ) : (
-        <p className="text-white">No user data found. Please log in.</p>
+        <p>You are not logged in.</p>
       )}
     </div>
   );

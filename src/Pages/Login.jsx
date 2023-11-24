@@ -23,19 +23,20 @@ export default function Login() {
 
   const saveToLocalStorage = (data) => {
     localStorage.setItem("userData", JSON.stringify(data));
+
+    // Save other user data if needed
+    // For example, if you want to save the user's name
+    localStorage.setItem("userName", data.user.name);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const csrfToken = document.head.querySelector(
         'meta[name="csrf-token"]'
       ).content;
       axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
-
-      console.log("Login form data:", formData); // Log the form data being sent
 
       const response = await axios.post(
         "http://localhost:8000/api/login",
@@ -45,19 +46,32 @@ export default function Login() {
       console.log("Login response:", response.data);
 
       if (response.data.token) {
-        // Save relevant user data to local storage
-        saveToLocalStorage({
-          Data: response.data,
-        });
-        console.log("Login successful!");
-        login("/");
-        navigate("/");
+        // Save the token to local storage
+        login(response.data.token);
+
+        // Save other user data if needed
+        if (response.data.user) {
+          saveToLocalStorage(response.data.user);
+        }
+
+        // Redirect to the desired page after successful login
+        navigate("/profile"); // Replace "/profile" with the desired route
       } else {
         setError("Invalid email or password. Please try again.");
       }
     } catch (error) {
-      console.error("Login error:", error.response || error);
-      setError("An unexpected error occurred. Please try again.");
+      console.error("Login error:", error);
+
+      // Check if the error object and its response property are defined
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message);
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
