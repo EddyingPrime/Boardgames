@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import images1 from "../assets/Uno.jpg";
 import images2 from "../assets/King.jpg";
+import Hero from "../Components/Hero";
 
 const Home = () => {
   // Sample data for featured games, recommended cafes, and top threads
@@ -18,15 +19,10 @@ const Home = () => {
   ];
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      <div className="container mx-auto p-8">
-        <h1 className="text-5xl font-bold mb-4 text-orange">Welcome</h1>
-        <p className="mb-8">
-          🎲 Are you ready to roll the dice and experience the joy of board
-          games? Look no further!{" "}
-          <span className="font-bold ">Touch Grass</span> is your ultimate
-          destination for all things board games and socialization.
-        </p>
+    <>
+    <Hero/>
+    <div className="bg-gray min-h-screen">
+      <div className="container mx-auto p-2">
         <h2 className="text-2xl font-bold mb-4">
           Discover the World of Board Games
         </h2>
@@ -104,6 +100,7 @@ const Home = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
