@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import images1 from "../assets/Uno.jpg";
 import images2 from "../assets/King.jpg";
 import Hero from "../Components/Hero";
+import Featured from "../Components/Featured";
 
 const Home = () => {
   // Sample data for featured games, recommended cafes, and top threads
@@ -22,7 +23,7 @@ const Home = () => {
     <>
     <Hero/>
     <div className="bg-gray min-h-screen">
-      <div className="container mx-auto p-2">
+      <div className="container mx-auto">
         <h2 className="text-2xl font-bold mb-4">
           Discover the World of Board Games
         </h2>
@@ -42,8 +43,9 @@ const Home = () => {
           game adventures together.
         </p>
 
+          <Featured/>
         {/* Featured Games */}
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <h2 className="text-2xl font-bold mb-4">Featured Games</h2>
           <div className="flex space-x-4">
             <Link to="/Uno">
@@ -53,7 +55,7 @@ const Home = () => {
               <img src={images2} alt="Uno" className="h-60" />
             </Link>
           </div>
-        </div>
+        </div> */}
         <h2 className="text-2xl font-bold mb-4">
           Schedule Ahead for Cafe Reservations
         </h2>
