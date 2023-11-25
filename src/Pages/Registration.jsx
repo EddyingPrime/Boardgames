@@ -48,8 +48,17 @@ const RegistrationForm = () => {
         "http://localhost:8000/api/register",
         formData
       );
+      console.log(response);
+      if (response.data.user) {
+        // Access user information
+        const user = response.data.user;
+        console.log("User:", user);
 
-      if (response.data.success) {
+        // Access token
+        const token = response.data.token;
+        console.log("Token:", token);
+
+        // Handle success
         setSuccessMessage("Registration successful");
         setError(null);
         setFormData({
@@ -58,13 +67,13 @@ const RegistrationForm = () => {
           password: "",
           password_confirmation: "",
         });
+
+        // Clear local storage after successful registration
+        localStorage.removeItem("registrationFormData");
       } else {
+        // Handle failure
         setSuccessMessage(null);
-        if (response.data.error) {
-          setError(response.data.error); // Display specific error message
-        } else {
-          setError("Registration failed. Please check your information.");
-        }
+        setError("Registration failed. Please check your information.");
       }
     } catch (error) {
       setSuccessMessage(null);
