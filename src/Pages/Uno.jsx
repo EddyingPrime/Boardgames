@@ -1,28 +1,40 @@
-import { useState } from "react";
-import UnoImage from "../assets/Uno.jpg";
+import { useState, useEffect } from "react"; 
 import UnoBg from "../assets/Unobg.jpg";
-import Image1 from "../assets/Uno1.jpg";
-import Image2 from "../assets/Uno2.jpg";
-import Image3 from "../assets/Uno3.jpg";
+import image1 from "../assets/Unobg1.jpg";
+import image2 from "../assets/Unobg2.jpg";
 
-const images = [Image1, Image2, Image3];
 
-const Unopage = () => {
+const Uno = () => {
+  const images = [UnoBg, image1, image2];
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prevImage) => (prevImage + 1) % images.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   return (
     <>
-      <div
-        className="bg-cover bg-center p-6"
-        style={{ backgroundImage: `url(${UnoBg})` }}
-      >
-        <div className="container mx-auto flex items-center justify-between">
-          <div className="w-1/2">
-            <div className="p-4">
-              {/* <img src={UnoImage} alt="" className="w-[300px] h-auto" /> */}
-            </div>
-          </div>
-          <div className="w-1/2 flex flex-col justify-center">
-            <div className="bg-white border border-gray-500 p-4">
-              <h2 className="text-xl font-bold mb-2">Description</h2>
+      <div className="relative h-screen -mb-10">
+        {images.map((image, index) => (
+          <img
+            key={index}
+            src={image}
+            alt={`hero-${index}`}
+            className={`absolute w-full h-[70%] transition-opacity duration-2000 ${
+              index === currentImage ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
+      </div>
+      <div className="bg-white py-2 bg-opacity-10 ">     
+      <div className="container mx-auto px-4 lg:flex">
+        <div className="lg:w-1/2 flex flex-col justify-center">
+          <div className=" bg-gray rounded-lg border border-gray-500 p-5 mb-2 -mt-[20%]">
+            <h2 className="text-xl font-bold mb-2">Description</h2>
               <p>
                 Uno is a fast-paced card game designed for 2 to 10 players,
                 though it's most enjoyable with 3 to 7 players. The game is
@@ -30,7 +42,7 @@ const Unopage = () => {
                 engaging rules.
               </p>
             </div>
-            <div className="bg-white border border-gray-500 p-4">
+            <div className="bg-gray rounded-lg border border-gray-500 p-4 mb-2">
               <h2 className="text-xl font-bold mb-2">Gameplay Overview</h2>
               <p>
                 Players aim to be the first to get rid of all the cards in their
@@ -39,7 +51,7 @@ const Unopage = () => {
                 to 9) and special action cards.
               </p>
             </div>
-            <div className="bg-white border border-gray-500 p-4">
+            <div className="bg-gray rounded-lg border border-gray-500 p-4">
               <h2 className="text-xl font-bold mb-2">Gameplay Mechanics:</h2>
               <p>
                 *Players take turns playing a card from their hand that matches
@@ -52,8 +64,6 @@ const Unopage = () => {
                 it; otherwise, their turn ends.
               </p>
             </div>
-          </div>
-        </div>
       </div>
       <div className="container mx-auto p-4">
         <div className="grid grid-cols-5 gap-4">
@@ -115,8 +125,10 @@ const Unopage = () => {
           </p>
         </div>
       </div>
+      </div>
+      </div>
     </>
   );
 };
 
-export default Unopage;
+export default Uno;
