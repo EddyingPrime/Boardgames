@@ -1,60 +1,105 @@
-import { useEffect, useState } from "react";
+import React, { useState } from 'react';
 
 const Profile = () => {
-  const [userObject, setUserObject] = useState(null);
-  const [avatarUrl, setAvatarUrl] = useState(null);
+  const [userName, setUserName] = useState(' ');
+  const [email, setEmail] = useState('');
+  const [profilePic, setProfilePic] = useState('');
+  const [editMode, setEditMode] = useState(false);
 
-  useEffect(() => {
-    const storedUserData = localStorage.getItem("userData");
+  const handleNameChange = (event) => {
+    setUserName(event.target.value);
+  };
 
-    if (storedUserData) {
-      const parsedUserData = JSON.parse(storedUserData);
-      setUserObject(parsedUserData.Data.user);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
 
-      // Assume the API returns an object with an 'avatar_url' property
-      fetch("", {
-        method: "GET",
-        headers: {
-          // Add any headers required by your API
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Assuming the API response has an 'avatar_url' property
-          setAvatarUrl(data.avatar_url);
-        })
-        .catch((error) => {
-          console.error("Error fetching avatar:", error);
-        });
-    }
-  }, []);
+  const handlePictureChange = (event) => {
+    setProfilePic(event.target.value);
+  };
+
+  const handleEditClick = () => {
+    setEditMode(!editMode);
+  };
+
+  const handleSaveClick = () => {
+    setEditMode(false);
+  };
 
   return (
-    <div className="bg-gray min-h-screen p-8">
-      <h1 className="text-4xl font-bold mb-4 text-orange">User Profile</h1>
-      {userObject ? (
-        <div className="bg-white p-4 rounded-md shadow-md">
-          {avatarUrl ? (
-            <img
-              src={avatarUrl}
-              alt="User Avatar"
-              className="mb-4 rounded-full"
-            />
-          ) : (
-            <p>Loading avatar...</p>
+    <div className="max-w-md mx-auto bg-white shadow-md rounded p-6 mb-4">
+      <div className="flex flex-col md:flex-row items-center md:items-start mb-4">
+        <div className="w-full md:w-1/2 md:mr-4 mb-4 md:mb-0">
+          <h1 className="text-black font-bold  text-2xl mb-2">Welcome,</h1>
+          <div className={`border border-gray-300 rounded-md p-2 ${editMode ? 'p-2' : ''}`}>
+            {editMode ? (
+              <input
+                type="text"
+                value={userName}
+                onChange={handleNameChange}
+                className="w-full py-1 px-2 text-black leading-tight focus:outline-none"
+              />
+            ) : (
+              <span>{userName}</span>
+            )}
+          </div>
+          <h2 className="text-gray font-bold my-2">Email</h2>
+          <div className={`border border-gray-300 p-2 rounded-md ${editMode ? 'p-2' : ''}`}>
+            {editMode ? (
+              <input
+                type="text"
+                value={email}
+                onChange={handleEmailChange}
+                className="w-full py-1 px-2 text-gray leading-tight focus:outline-none"
+              />
+            ) : (
+              <span>{email}</span>
+            )}
+          </div>
+          {editMode && (
+            <button
+              onClick={handleSaveClick}
+              className="bg-blue hover:bg-blue-700 text-black font-bold py-2 px-4 rounded mt-2 focus:outline-none focus:shadow-outline"
+            >
+              Save
+            </button>
           )}
-          <p className="text-2xl">
-            <strong>Name:</strong> {userObject.name}
-          </p>
-          <p className="text-sm">
-            <strong>Email:</strong> {userObject.email}
-          </p>
-          {/* Add more user information as needed */}
         </div>
-      ) : (
-        <p className="text-white">No user data found. Please log in.</p>
-      )}
+        <div className="w-full md:w-1/2 flex justify-center md:justify-end">
+          <div className="relative border border-gray rounded-md overflow-hidden">
+            <input
+              id="profilePic"
+              type="file"
+              accept="image/*"
+              onChange={handlePictureChange}
+              className="hidden"
+            />
+            <img
+              src={profilePic}
+              alt="Profile"
+              className="w-40 h-40 object-cover rounded-full cursor-pointer"
+            />
+            {editMode && (
+              <button
+                onClick={() => document.getElementById('profilePic').click()}
+                className="absolute bottom-0 right-0 bg-blue text-black font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              >
+                Change
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="w-full md:w-1/2">
+        {!editMode && (
+          <button
+            onClick={handleEditClick}
+            className="bg-blue hover:bg-blue text-black font-bold py-2 px-4 rounded mt-2 focus:outline-none focus:shadow-outline"
+          >
+            Edit
+          </button>
+        )}
+      </div>
     </div>
   );
 };

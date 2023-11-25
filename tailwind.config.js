@@ -10,7 +10,10 @@ export default {
     colors: {
       orange:"#EE6811",
       gray:"#F6F6F6",
-      white:"#FFFFFF"
+      white:"#FFFFFF",
+      black:"#343a40",
+      blue:"#4cc9f0",
+
     },
 
     extend: {},
