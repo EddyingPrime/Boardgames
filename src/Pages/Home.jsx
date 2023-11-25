@@ -3,12 +3,18 @@ import images1 from "../assets/Uno.jpg";
 import images2 from "../assets/King.jpg";
 import Hero from "../Components/Hero";
 import Featured from "../Components/Featured";
+import TableTaft from '../assets/TableTaft.png';
 
 const Home = () => {
   // Sample data for featured games, recommended cafes, and top threads
 
   const recommendedCafes = [
-    { id: 1, name: "Cafe A", image: "/" },
+    {
+      id: 1,
+      name: 'TableTaft',
+      link: '/taft',
+      image: TableTaft,
+  },
     { id: 2, name: "Cafe B", image: "/" },
     // Add more cafes as needed
   ];
@@ -23,7 +29,7 @@ const Home = () => {
     <>
     <Hero/>
     <div className="bg-gray min-h-screen">
-      <div className="container mx-auto">
+      <div className="container mx-auto -mt-[14%]">
         <h2 className="text-2xl font-bold mb-4">
           Discover the World of Board Games
         </h2>
@@ -75,7 +81,7 @@ const Home = () => {
                   <img
                     src={cafe.image}
                     alt={cafe.name}
-                    className="w-full h-32 object-cover mb-2 rounded"
+                    className="w-full h-50 object-cover mb-2 rounded"
                   />
                   <p className="text-gray-800 font-semibold">{cafe.name}</p>
                 </Link>
