@@ -110,9 +110,9 @@ const Featured = () => {
               />
               <div className="p-4">
                 <h3 className="text-xl font-semibold mb-2">{category.name}</h3>
-                <button className="bg-orange text-white py-1 px-2 rounded-md hover:bg-yellow-500">
+                {/* <button className="bg-orange text-white py-1 px-2 rounded-md hover:bg-yellow-500">
                   Explore
-                </button>
+                </button> */}
               </div>
             </div>
             </Link>

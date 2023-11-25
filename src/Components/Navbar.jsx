@@ -15,7 +15,7 @@ const Navbar = () => {
   const logout = UseAuth().logout;
 
   return (
-    <nav className="bg-gray p-4">
+    <nav className="bg-white p-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <img src={logo} alt="Logo" className="h-8 mr-4" />

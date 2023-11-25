@@ -1,18 +1,26 @@
-import Uno from "../assets/Uno.jpg";
+import { useState } from "react";
+import UnoImage from "../assets/Uno.jpg";
+import UnoBg from "../assets/Unobg.jpg";
+import Image1 from "../assets/Uno1.jpg";
+import Image2 from "../assets/Uno2.jpg";
+import Image3 from "../assets/Uno3.jpg";
 
-const image = ["Uno.jpg", "image2.jpg"];
+const images = [Image1, Image2, Image3];
 
 const Unopage = () => {
   return (
     <>
-      <div className="bg-orange p-6">
+      <div
+        className="bg-cover bg-center p-6"
+        style={{ backgroundImage: `url(${UnoBg})` }}
+      >
         <div className="container mx-auto flex items-center justify-between">
           <div className="w-1/2">
-            <div className=" p-4">
-              <img src={Uno} alt="" className="w-full h-30" />
+            <div className="p-4">
+              {/* <img src={UnoImage} alt="" className="w-[300px] h-auto" /> */}
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="w-1/2 flex flex-col justify-center">
             <div className="bg-white border border-gray-500 p-4">
               <h2 className="text-xl font-bold mb-2">Description</h2>
               <p>
@@ -48,12 +56,11 @@ const Unopage = () => {
         </div>
       </div>
       <div className="container mx-auto p-4">
-        <h2 className="text-2xl font-bold mb-4">Images</h2>
         <div className="grid grid-cols-5 gap-4">
-          {image.map((image, index) => (
+          {images.map((imageSrc, index) => (
             <div key={index} className="border border-gray-400 p-2">
               <img
-                src={image}
+                src={imageSrc}
                 alt={`Image ${index}`}
                 className="w-full h-auto"
               />
@@ -63,31 +70,46 @@ const Unopage = () => {
       </div>
       <div className="container mx-auto mt-8 px-4">
         <div className="bg-white rounded-lg shadow-md p-6">
+          {/* Video Link Container */}
+          <h2 className="text-2xl font-bold mb-4">How to Play Uno</h2>
+          <div className="flex justify-center items-center">
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/watch?v=sWoSZmHsCls"
+              title="Uno Gameplay Video"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+      <div className="container mx-auto mt-8 px-4 mb-5">
+        <div className="bg-gray rounded-lg shadow-md p-6">
           <div>
-            <h3 className="text-lg font-semibold mb-2">Objective</h3>
-            <p className="mb-4">
+            <h3 className="text-xl mb-2 font-bold">Objective</h3>
+            <p className="mb-4 text-lg">
               The objective of Uno is to be the first player to get rid of all
               the cards in your hand.
             </p>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-2">Setup</h3>
-            <p className="mb-4">
+            <h3 className="text-xl font-bold mb-2">Setup</h3>
+            <p className="mb-4 text-lg">
               Shuffle the deck of Uno cards. Deal 7 cards to each player. Place
               the remaining deck face down as the draw pile. Flip the top card
               from the draw pile to start the discard pile.
             </p>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-2">Winning</h3>
-            <p className="mb-4">
+            <h3 className="text-xl font-bold mb-2">Winning</h3>
+            <p className="mb-4 text-lg">
               The first player to play all their cards wins the round. They
               receive points based on the remaining cards in opponents' hands.
               The game continues until a player reaches a predetermined points
               goal.
             </p>
           </div>
-          <p className="text-sm">
+          <p className="text-lg">
             Remember, house rules can vary, so be sure to clarify any specific
             rules or variations before starting the game!
           </p>

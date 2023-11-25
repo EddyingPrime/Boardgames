@@ -1,18 +1,21 @@
-import King from "../assets/King.jpg";
+import KingBg from "../assets/Kingbg.jpg";
 
-const image = ["/assets/Uno1.jpg"];
+// const image = [Image1, Image2, Image3];
 
-const Uno = () => {
+const King = () => {
   return (
     <>
-      <div className="bg-orange p-6">
+      <div
+        className="bg-cover bg-center p-6"
+        style={{ backgroundImage: `url(${KingBg})` }}
+      >
         <div className="container mx-auto flex items-center justify-between">
           <div className="w-1/2">
-            <div className=" border-gray-500 p-4">
-              <img src={King} alt="" className="w-full h-30" />
+            <div className="p-4">
+              {/* <img src={UnoImage} alt="" className="w-[300px] h-auto" /> */}
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="w-1/2 flex flex-col justify-center">
             <div className="bg-white border border-gray-500 p-4">
               <h2 className="text-xl font-bold mb-2">Description</h2>
               <p>
@@ -63,7 +66,7 @@ const Uno = () => {
           </div>
         </div>
       </div>
-      <div className="container mx-auto p-4">
+      {/* <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Images</h2>
         <div className="grid grid-cols-5 gap-4">
           {image.map((image, index) => (
@@ -75,6 +78,21 @@ const Uno = () => {
               />
             </div>
           ))}
+        </div>
+      </div> */}
+      <div className="container mx-auto mt-8 px-4">
+        <div className="bg-white rounded-lg shadow-md p-6">
+          {/* Video Link Container */}
+          <h2 className="text-2xl font-bold mb-4">King of Tokyo Game Overview</h2>
+          <div className="flex justify-center items-center">
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/watch?v=RWYGlPf6IzE"
+              title="King of Tokyo Gameplay Video"
+              allowFullScreen
+            ></iframe>
+          </div>
         </div>
       </div>
       <div className="container mx-auto mt-8 px-4 mb-5">
@@ -127,4 +145,4 @@ const Uno = () => {
   );
 };
 
-export default Uno;
+export default King;
