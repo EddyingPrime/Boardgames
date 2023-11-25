@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import { useEffect, useState } from "react";
-import { UseAuth } from "../authentication/UseAuth";
-import axios from "axios";
 
 const Profile = () => {
   const [userName, setUserName] = useState(' ');
@@ -28,53 +25,6 @@ const Profile = () => {
   const handleSaveClick = () => {
     setEditMode(false);
   };
-  const { isAuthenticated, logout } = UseAuth();
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const token = localStorage.getItem("AUTH_TOKEN");
-        if (!token) {
-          throw new Error("Authentication token not found");
-        }
-
-        const response = await axios.get("http://localhost:8000/api/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setUser(response.data.user);
-      } catch (error) {
-        console.error(error);
-        setError(
-          error.response
-            ? error.response.data
-            : { message: "Error fetching user profile" }
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchUserProfile();
-  }, []);
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error && error.message === "Unauthenticated.") {
-    // Token might be invalid or expired. Log out the user.
-    logout();
-    return <p>You are not authenticated. Please log in again.</p>;
-  }
-
-  if (error) {
-    return <p>{error.message}</p>;
-  }
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-md rounded p-6 mb-4">
