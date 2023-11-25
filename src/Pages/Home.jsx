@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import images1 from "../assets/Uno.jpg";
-import images2 from "../assets/King.jpg";
 import Hero from "../Components/Hero";
 import Featured from "../Components/Featured";
 import TableTaft from '../assets/TableTaft.png';
+import GameOver from '../assets/GameOver.png';
+import Hungry from '../assets/Hungry.png';
+import Happy from '../assets/Happy.png';
 
 const Home = () => {
   // Sample data for featured games, recommended cafes, and top threads
@@ -11,11 +12,28 @@ const Home = () => {
   const recommendedCafes = [
     {
       id: 1,
-      name: 'TableTaft',
+      name: 'TableTaft Boardgame Cafe',
       link: '/taft',
       image: TableTaft,
   },
-    { id: 2, name: "Cafe B", image: "/" },
+  {
+    id: 2,
+    name: 'Game Over PH: Respawn',
+    link: '/GameOver',
+    image: GameOver,
+},
+{
+  id: 3,
+  name: 'Hungry Meeples',
+  link: '/Hungry',
+  image: Hungry,
+},
+{
+  id: 4,
+  name: 'Happy Beans',
+  link: '/Happy',
+  image: Happy,
+},
     // Add more cafes as needed
   ];
 
@@ -81,7 +99,7 @@ const Home = () => {
                   <img
                     src={cafe.image}
                     alt={cafe.name}
-                    className="w-full h-50 object-cover mb-2 rounded"
+                    className="w-full h-40 object-cover mb-2 rounded"
                   />
                   <p className="text-gray-800 font-semibold">{cafe.name}</p>
                 </Link>

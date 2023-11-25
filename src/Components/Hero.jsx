@@ -22,15 +22,15 @@ const Hero = () => {
           key={index}
           src={image}
           alt={`hero-${index}`}
-          className={`absolute w-full h-[70%] transition-opacity duration-2000 ${
-            index === currentImage ? 'opacity-100' : 'opacity-0'
+          className={`absolute w-full h-[70%] transition-opacity   duration-2000 ${
+            index === currentImage ? 'opacity-80' : 'opacity-0'
           }`}
         />
       ))}
       <div className="absolute inset-0 flex justify-center items-center">
         <div className="bg-gray bg-opacity-70 mb-[20%] rounded-md p-2 max-w-md text-center">
           <h1 className="text-5xl font-bold mb-4 text-orange">Welcome</h1>
-          <p className="mb-8">
+          <p className="mb-8 text-2xl">
             🎲 Are you ready to roll the dice and experience the joy of board
             games? Look no further!{' '}
             <span className="font-bold">Touch Grass</span> is your ultimate
