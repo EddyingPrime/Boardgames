@@ -9,7 +9,7 @@ import image6 from "../assets/Uno4.jpg";
 
 
 
-const Uno = () => {
+const Septima = () => {
   const images = [UnoBg, image1, image2];
 
   const imagesList = [image3, image4, image5, image6];
@@ -140,4 +140,4 @@ const Uno = () => {
   );
 };
 
-export default Uno;
+export default Septima;

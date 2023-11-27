@@ -37,7 +37,7 @@ const Home = () => {
     {
       id: 1,
       name: 'TableTaft Boardgame Cafe',
-      link: '/taft',
+      link: '/tabletaft',
       image: TableTaft,
   },
   {
@@ -58,7 +58,7 @@ const Home = () => {
   link: '/Happy',
   image: Happy,
 },
-    // Add more cafes as needed
+    
   ];
   const settings = {
     dots: false,
@@ -122,22 +122,22 @@ const Home = () => {
 
         {/* Recommended Cafes */}
         <div className="mb-8">
-      <h2 className="text-2xl font-bold mb-4">Recommended Cafes</h2>
-      <Slider {...settings}>
-        {recommendedCafes.map((cafe) => (
-          <div key={cafe.id}>
-            <Link to={`/cafe/${cafe.id}`} className="flex flex-col items-center">
-              <img
-                src={cafe.image}
-                alt={cafe.name}
-                className="w-full h-40 object-cover mb-2 rounded"
-              />
-              <p className="text-gray-800 font-semibold">{cafe.name}</p>
-            </Link>
-          </div>
-        ))}
-      </Slider>
-    </div>
+        <h2 className="text-2xl font-bold mb-4">Recommended Cafes</h2>
+        <Slider {...settings}>
+          {recommendedCafes.map((cafe) => (
+            <div key={cafe.id}>
+              <Link to={cafe.link} className="flex flex-col items-center">
+                <img
+                  src={cafe.image}
+                  alt={cafe.name}
+                  className="w-full h-40 object-cover mb-2 rounded"
+                />
+                <p className="text-gray-800 font-semibold">{cafe.name}</p>
+              </Link>
+            </div>
+          ))}
+        </Slider>
+      </div>
 
         {/* Top Threads with Comments */}
         <div>

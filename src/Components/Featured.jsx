@@ -32,19 +32,19 @@ const Featured = () => {
         id: 3,
         name: 'Lost Ruins of Arnak',
         image: [images3],
-        link: '/',
+        link: '/Lost',
       },
       {
         id: 4,
         name: 'Septima',
         image: [images4],
-        link: '/',
+        link: '/septima',
       },
       {
         id: 5,
         name: 'Spirit island',
         image: [images5],
-        link: '/',
+        link: '/Spirit',
       },
       {
         id: 6,
