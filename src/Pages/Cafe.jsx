@@ -2,7 +2,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import ReservationPage from "../Components/ReservationPage";
 
 const Cafe = () => {
-  const options = ["Cafe A", "Cafe B", "Cafe C"];
+  const options = ["Cafe[]", "Cafe B", "Cafe C"];
 
   return (
     <div className="bg-gray-100 min-h-screen">

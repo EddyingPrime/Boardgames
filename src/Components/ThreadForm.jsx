@@ -45,6 +45,7 @@ export default function ThreadForm() {
       }
 
       setError("An unexpected error occurred. Please try again.");
+      
     }
   };
 

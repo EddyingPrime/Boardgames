@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 
 const Profile = () => {
-  const [profileImage, setProfileImage] = useState('');
-  const [coverImage, setCoverImage] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [location, setLocation] = useState('');
+  const [profileImage, setProfileImage] = useState("");
+  const [coverImage, setCoverImage] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [location, setLocation] = useState("");
   const [editing, setEditing] = useState(false);
 
   const handleProfileImageChange = (e) => {
@@ -62,7 +62,7 @@ const Profile = () => {
           />
           <label htmlFor="profilePicInput">
             <img
-              src={profileImage || ''}
+              src={profileImage || ""}
               alt="Profile"
               className="w-32 h-32 rounded-full cursor-pointer"
             />

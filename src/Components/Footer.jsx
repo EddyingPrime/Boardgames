@@ -2,10 +2,13 @@ import logo from "../assets/logo.png";
 import pin from "../assets/pin.png";
 import email from "../assets/email.png";
 import phone from "../assets/phone.png";
-import facebook from "../assets/facebook.png";
-import twitter from "../assets/twitter.png";
-import linkedin from "../assets/linkedin.png";
-import {AiOutlineFacebook, AiOutlineInstagram, AiOutlineGithub, AiOutlineLinkedin, AiOutlineTwitter} from 'react-icons/ai'
+import {
+  AiOutlineFacebook,
+  AiOutlineInstagram,
+  AiOutlineGithub,
+  AiOutlineLinkedin,
+  AiOutlineTwitter,
+} from "react-icons/ai";
 
 const Footer = () => {
   return (
@@ -69,42 +72,72 @@ const Footer = () => {
       </div>
 
       <div className="w-50 mr-[5%] lg:w-1/4 mb-6 lg:mb-0">
-      <h4 className="text-lg md:text-xl font-bold mt-10">COMPANY</h4>
-<ul className="text-md">
-  <li className="mb-2 hover:underline"><a href="#">About Us</a></li>
-  <li className="mb-2 hover:underline"><a href="#">News</a></li>
-  <li className="mb-2 hover:underline"><a href="#">Privacy Policy</a></li>
+        <h4 className="text-lg md:text-xl font-bold mt-10">COMPANY</h4>
+        <ul className="text-md">
+          <li className="mb-2 hover:underline">
+            <a href="#">About Us</a>
+          </li>
+          <li className="mb-2 hover:underline">
+            <a href="#">News</a>
+          </li>
+          <li className="mb-2 hover:underline">
+            <a href="#">Privacy Policy</a>
+          </li>
+        </ul>
+        <h4 className="text-lg md:text-xl font-bold mb-1 mt-5">USEFUL LINKS</h4>
+        <ul className="text-md">
+          <li className="mb-2 hover:underline">
+            <a href="#">Help</a>
+          </li>
+          <li className="mb-2 hover:underline">
+            <a href="#">Beginner's Guide</a>
+          </li>
+          <li className="mb-2 hover:underline">
+            <a href="#">Tournaments</a>
+          </li>
+        </ul>
 
-</ul>
-<h4 className="text-lg md:text-xl font-bold mb-1 mt-5">USEFUL LINKS</h4>
-<ul className="text-md">
-  <li className="mb-2 hover:underline"><a href="#">Help</a></li>
-  <li className="mb-2 hover:underline"><a href="#">Beginner's Guide</a></li>
-  <li className="mb-2 hover:underline"><a href="#">Tournaments</a></li>
-</ul>
-
-<h3 className="text-lg md:text-xl font-bold mt-5">FOLLOW US ON</h3>
-          <div className="flex justify-center md:justify-start items-center space-x-4 mt-2">
-          <a href="www.facebook.com/louraine16" target="_blank" rel="noopener noreferrer" className="text-md hover:underline">
-              <AiOutlineFacebook/>
-              </a>
-              <a href="www.instagram.com/_loooreyn" target="_blank" rel="noopener noreferrer" className="text-md hover:underline">
-              <AiOutlineInstagram/>
-              </a>
-              <a href="/facebook.com" className="text-md hover:underline">
-              <AiOutlineGithub/>
-              </a>
-              <a href="https://www.linkedin.com/in/yourlinkedinprofile" target="_blank" rel="noopener noreferrer" className="text-md hover:underline">
-              <AiOutlineLinkedin/>
-              </a>
-              <a href="www.twitter.com/_loooreyn" target="_blank" rel="noopener noreferrer" className="text-md hover:underline">
-              <AiOutlineTwitter/>
-              </a>
-          </div>
-          </div>
+        <h3 className="text-lg md:text-xl font-bold mt-5">FOLLOW US ON</h3>
+        <div className="flex justify-center md:justify-start items-center space-x-4 mt-2">
+          <a
+            href="www.facebook.com/louraine16"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-md hover:underline"
+          >
+            <AiOutlineFacebook />
+          </a>
+          <a
+            href="www.instagram.com/_loooreyn"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-md hover:underline"
+          >
+            <AiOutlineInstagram />
+          </a>
+          <a href="/facebook.com" className="text-md hover:underline">
+            <AiOutlineGithub />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/yourlinkedinprofile"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-md hover:underline"
+          >
+            <AiOutlineLinkedin />
+          </a>
+          <a
+            href="www.twitter.com/_loooreyn"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-md hover:underline"
+          >
+            <AiOutlineTwitter />
+          </a>
+        </div>
       </div>
+    </div>
   );
 };
 
 export default Footer;
-

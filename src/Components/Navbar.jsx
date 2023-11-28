@@ -49,7 +49,7 @@ const Navbar = () => {
             </li>
             <li className="laptop:flex phone:hidden">
               <Link
-                to="/forum"
+                to="/forums"
                 className="text-orange hover:text-gray-300 -ml-[150px]"
               >
                 Forums
