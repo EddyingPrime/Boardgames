@@ -1,104 +1,119 @@
 import React, { useState } from 'react';
 
 const Profile = () => {
-  const [userName, setUserName] = useState(' ');
+  const [profileImage, setProfileImage] = useState('');
+  const [coverImage, setCoverImage] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [profilePic, setProfilePic] = useState('');
-  const [editMode, setEditMode] = useState(false);
+  const [location, setLocation] = useState('');
+  const [editing, setEditing] = useState(false);
 
-  const handleNameChange = (event) => {
-    setUserName(event.target.value);
+  const handleProfileImageChange = (e) => {
+    setProfileImage(URL.createObjectURL(e.target.files[0]));
   };
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+  const handleCoverImageChange = (e) => {
+    setCoverImage(URL.createObjectURL(e.target.files[0]));
   };
 
-  const handlePictureChange = (event) => {
-    setProfilePic(event.target.value);
+  const handleNameChange = (e) => {
+    setName(e.target.value);
   };
 
-  const handleEditClick = () => {
-    setEditMode(!editMode);
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
   };
 
-  const handleSaveClick = () => {
-    setEditMode(false);
+  const handleLocationChange = (e) => {
+    setLocation(e.target.value);
+  };
+
+  const handleSaveChanges = () => {
+    setEditing(false);
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow-md rounded p-6 mb-4">
-      <div className="flex flex-col md:flex-row items-center md:items-start mb-4">
-        <div className="w-full md:w-1/2 md:mr-4 mb-4 md:mb-0">
-          <h1 className="text-black font-bold  text-2xl mb-2">Welcome,</h1>
-          <div className={`border border-gray-300 rounded-md p-2 ${editMode ? 'p-2' : ''}`}>
-            {editMode ? (
-              <input
-                type="text"
-                value={userName}
-                onChange={handleNameChange}
-                className="w-full py-1 px-2 text-black leading-tight focus:outline-none"
-              />
-            ) : (
-              <span>{userName}</span>
-            )}
-          </div>
-          <h2 className="text-gray font-bold my-2">Email</h2>
-          <div className={`border border-gray-300 p-2 rounded-md ${editMode ? 'p-2' : ''}`}>
-            {editMode ? (
-              <input
-                type="text"
-                value={email}
-                onChange={handleEmailChange}
-                className="w-full py-1 px-2 text-gray leading-tight focus:outline-none"
-              />
-            ) : (
-              <span>{email}</span>
-            )}
-          </div>
-          {editMode && (
-            <button
-              onClick={handleSaveClick}
-              className="bg-blue hover:bg-blue-700 text-black font-bold py-2 px-4 rounded mt-2 focus:outline-none focus:shadow-outline"
-            >
-              Save
-            </button>
-          )}
-        </div>
-        <div className="w-full md:w-1/2 flex justify-center md:justify-end">
-          <div className="relative border border-gray rounded-md overflow-hidden">
-            <input
-              id="profilePic"
-              type="file"
-              accept="image/*"
-              onChange={handlePictureChange}
-              className="hidden"
-            />
-            <img
-              src={profilePic}
-              alt="Profile"
-              className="w-40 h-40 object-cover rounded-full cursor-pointer"
-            />
-            {editMode && (
-              <button
-                onClick={() => document.getElementById('profilePic').click()}
-                className="absolute bottom-0 right-0 bg-blue text-black font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-              >
-                Change
-              </button>
-            )}
-          </div>
-        </div>
+    <div className="bg-gray min-h-screen">
+      {/* Cover Image */}
+      <div className="bg-cover bg-center h-60">
+        <input
+          type="file"
+          onChange={handleCoverImageChange}
+          className="hidden"
+          id="coverPicInput"
+        />
+        <label htmlFor="coverPicInput">
+          <img
+            src={coverImage}
+            alt="Cover"
+            className="w-full h-full cursor-pointer"
+          />
+        </label>
       </div>
-      <div className="w-full md:w-1/2">
-        {!editMode && (
-          <button
-            onClick={handleEditClick}
-            className="bg-blue hover:bg-blue text-black font-bold py-2 px-4 rounded mt-2 focus:outline-none focus:shadow-outline"
-          >
-            Edit
-          </button>
-        )}
+
+      {/* Profile Picture and Info */}
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        <div className="flex items-start space-x-6">
+          <input
+            type="file"
+            onChange={handleProfileImageChange}
+            className="hidden"
+            id="profilePicInput"
+          />
+          <label htmlFor="profilePicInput">
+            <img
+              src={profileImage || ''}
+              alt="Profile"
+              className="w-32 h-32 rounded-full cursor-pointer"
+            />
+          </label>
+          {/* User Info */}
+          <div>
+            {editing ? (
+              <div className="space-y-4">
+                <input
+                  type="text"
+                  placeholder="Name"
+                  value={name}
+                  onChange={handleNameChange}
+                  className="block border border-gray rounded-md px-4 py-2 w-full mb-2"
+                />
+                <input
+                  type="text"
+                  placeholder="Email"
+                  value={email}
+                  onChange={handleEmailChange}
+                  className="block border border-gray rounded-md px-4 py-2 w-full mb-2"
+                />
+                <input
+                  type="text"
+                  placeholder="Location"
+                  value={location}
+                  onChange={handleLocationChange}
+                  className="block border border-gray rounded-md px-4 py-2 w-full mb-2"
+                />
+                <button
+                  onClick={handleSaveChanges}
+                  className="bg-blue text-white font-semibold py-2 px-4 rounded focus:outline-none"
+                >
+                  Save Changes
+                </button>
+              </div>
+            ) : (
+              <div>
+                <h1 className="text-3xl font-semibold">{name}</h1>
+                <p className="text-gray-600">{email}</p>
+                <p className="text-gray-600">{location}</p>
+                <button
+                  onClick={() => setEditing(true)}
+                  className="bg-blue text-white font-semibold py-2 px-4 mt-2 rounded focus:outline-none"
+                >
+                  Edit Profile
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
