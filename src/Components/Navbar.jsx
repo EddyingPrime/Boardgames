@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { UseAuth } from "../authentication/UseAuth";
@@ -10,12 +10,31 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  const closeNavbar = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        // Close the navbar if the window is resized to a larger size than mobile
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   // Move the hook calls here
   const isAuthenticated = UseAuth().isAuthenticated;
   const logout = UseAuth().logout;
 
   return (
-    <nav className="bg-white p-4">
+    <nav className="bg-white p-4 border">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex flex-col items-start">
           <img src={logo} alt="Logo" className="h- mr-4 w-[300px]" />
@@ -26,7 +45,7 @@ const Navbar = () => {
             <li className="laptop:flex phone:hidden">
               <Link
                 to="/"
-                className="text-orange hover:text-gray-300 -ml-[300px]"
+                className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange bg px-4 text-black hover:text-orange uppercase -ml-[200px]"
               >
                 Home
               </Link>
@@ -34,7 +53,7 @@ const Navbar = () => {
             <li className="laptop:flex phone:hidden">
               <Link
                 to="/games"
-                className="text-orange hover:text-gray-300 -ml-[250px]"
+                className="block py-2 shadow-md shadow-orange  focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-orange uppercase -ml-[150px]"
               >
                 Games
               </Link>
@@ -42,7 +61,7 @@ const Navbar = () => {
             <li className="laptop:flex phone:hidden">
               <Link
                 to="/cafe"
-                className="text-orange hover:text-gray-300 -ml-[200px]"
+                className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-orange uppercase -ml-[100px]"
               >
                 Cafe
               </Link>
@@ -50,7 +69,11 @@ const Navbar = () => {
             <li className="laptop:flex phone:hidden">
               <Link
                 to="/forums"
+<<<<<<< Updated upstream
                 className="text-orange hover:text-gray-300 -ml-[150px]"
+=======
+                className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-orange uppercase -ml-[60px]"
+>>>>>>> Stashed changes
               >
                 Forums
               </Link>
@@ -80,7 +103,7 @@ const Navbar = () => {
                 <li className="laptop:flex phone:hidden">
                   <Link
                     to="/login"
-                    className="text-orange hover:text-gray-300 ml-20"
+                    className="block py-2 shadow-md shadow-black  px-3 text-black hover:text-black uppercase ml-40"
                   >
                     Login
                   </Link>
@@ -88,7 +111,7 @@ const Navbar = () => {
                 <li className="laptop:flex phone:hidden">
                   <Link
                     to="/register"
-                    className="text-orange hover:text-gray-300 ml-5"
+                    className="block py-2 shadow-md shadow-black  px-3 text-black hover:text-black uppercase -ml-5"
                   >
                     Register
                   </Link>
@@ -134,23 +157,23 @@ const Navbar = () => {
         <div className="md:hidden">
           <ul className="mt-2">
             <li>
-              <Link to="/" className="block text-orange py-2">
+              <Link to="/" className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/games" className="block text-orange py-2">
+              <Link to="/games" className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase">
                 Games
               </Link>
             </li>
             <li>
-              <Link to="/cafe" className="block text-orange py-2">
+              <Link to="/cafe" className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase">
                 Cafe
               </Link>
             </li>
             <li>
-              <Link to="/forum" className="block text-orange py-2">
-                Forum
+              <Link to="/forums" className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase">
+                Forums
               </Link>
             </li>
           </ul>
@@ -159,12 +182,12 @@ const Navbar = () => {
             {isAuthenticated ? (
               <>
                 <li>
-                  <Link to="/profile" className="block text-orange py-2">
+                  <Link to="/profile" className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase">
                     Profile
                   </Link>
                 </li>
                 <li>
-                  <button onClick={logout} className="block text-orange py-2">
+                  <button onClick={logout} className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase">
                     Logout
                   </button>
                 </li>
@@ -172,12 +195,12 @@ const Navbar = () => {
             ) : (
               <>
                 <li>
-                  <Link to="/login" className="block text-orange py-2">
+                  <Link to="/login" className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase">
                     Login
                   </Link>
                 </li>
                 <li>
-                  <Link to="/register" className="block text-orange py-2">
+                  <Link to="/register" className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase">
                     Register
                   </Link>
                 </li>

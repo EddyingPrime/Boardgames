@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import React from 'react';
 import TableTaft from '../assets/TableTaft.png';
+import Navbar from '../Components/Navbar';
 
 const TableTaft = () => {
 
@@ -42,6 +43,8 @@ const TableTaft = () => {
   ];
 
   return (
+    <>
+    <Navbar/>
     <div className="font-sans">
       <div className="bg-gray-100">
         <section className="text-gray-700 body-font">
@@ -165,6 +168,7 @@ const TableTaft = () => {
       )}
         </div>
       </div>
+      </>
   );
 };
 

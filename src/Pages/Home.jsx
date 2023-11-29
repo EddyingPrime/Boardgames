@@ -37,7 +37,7 @@ const Home = () => {
     {
       id: 1,
       name: 'TableTaft Boardgame Cafe',
-      link: '/tabletaft',
+      link: '/TableTaft',
       image: TableTaft,
   },
   {
@@ -99,18 +99,7 @@ const Home = () => {
         </p>
 
           <Featured/>
-        {/* Featured Games */}
-        {/* <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-4">Featured Games</h2>
-          <div className="flex space-x-4">
-            <Link to="/Uno">
-              <img src={images1} alt="Uno" className="h-60" />
-            </Link>
-            <Link to="/King">
-              <img src={images2} alt="Uno" className="h-60" />
-            </Link>
-          </div>
-        </div> */}
+
         <h2 className="text-2xl font-bold mb-4">
           Schedule Ahead for Cafe Reservations
         </h2>
@@ -122,22 +111,22 @@ const Home = () => {
 
         {/* Recommended Cafes */}
         <div className="mb-8">
-        <h2 className="text-2xl font-bold mb-4">Recommended Cafes</h2>
-        <Slider {...settings}>
-          {recommendedCafes.map((cafe) => (
-            <div key={cafe.id}>
-              <Link to={cafe.link} className="flex flex-col items-center">
-                <img
-                  src={cafe.image}
-                  alt={cafe.name}
-                  className="w-full h-40 object-cover mb-2 rounded"
-                />
-                <p className="text-gray-800 font-semibold">{cafe.name}</p>
-              </Link>
-            </div>
-          ))}
-        </Slider>
-      </div>
+          <h2 className="text-2xl font-bold mb-4">Recommended Cafes</h2>
+          <Slider {...sliderSettings}>
+            {recommendedCafes.map((cafe) => (
+              <div key={cafe.id}>
+                <Link to={cafe.link} className="flex flex-col items-center">
+                  <img
+                    src={cafe.image}
+                    alt={cafe.name}
+                    className="w-full h-40 object-cover mb-2 rounded"
+                  />
+                  <p className="text-gray-800 font-semibold">{cafe.name}</p>
+                </Link>
+              </div>
+            ))}
+          </Slider>
+        </div>
 
         {/* Top Threads with Comments */}
         <div>
