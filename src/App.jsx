@@ -1,5 +1,5 @@
 import AppRouter from "./Router/AppRouter";
-import { AuthProvider } from "./authentication/UseAuth";
+import { AuthProvider } from "./authentication/AuthProvider";
 
 export default function App() {
   return (

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
-import { UseAuth } from "../authentication/UseAuth";
+import { useAuth } from "../authentication/useAuth";
 
 export default function ThreadForm() {
-  const { authToken } = UseAuth();
+  const { authToken } = useAuth();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState(null);
@@ -45,7 +45,6 @@ export default function ThreadForm() {
       }
 
       setError("An unexpected error occurred. Please try again.");
-      
     }
   };
 

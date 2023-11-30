@@ -2,19 +2,26 @@ import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import ThreadForm from "../Components/ThreadForm";
 import ThreadDetails from "../Components/ThreadDetails";
-import { UseAuth } from "../authentication/UseAuth";
+import { useAuth } from "../authentication/useAuth";
 
 const Forums = () => {
-  const { isAuthenticated } = UseAuth();
+  const { getToken } = useAuth();
   const [threads, setThreads] = useState([]);
   const navigate = useNavigate();
 
   const handleThreadFormSubmit = (newThread) => {
-    setThreads([...threads, newThread]);
+    const token = getToken();
+    if (token) {
+      // User is logged in, allow thread submission
+      setThreads([...threads, newThread]);
+    } else {
+      // User is not logged in, redirect to login page
+      navigate("/login");
+    }
   };
 
   const handleUpvote = (threadId) => {
-    if (isAuthenticated) {
+    if (getToken()) {
       console.log(`Upvoting thread with ID: ${threadId}`);
     } else {
       navigate("/login");
@@ -24,8 +31,8 @@ const Forums = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="container mx-auto p-8">
-        {isAuthenticated && <ThreadForm onSubmit={handleThreadFormSubmit} />}
-        {!isAuthenticated && (
+        {getToken() && <ThreadForm onSubmit={handleThreadFormSubmit} />}
+        {!getToken() && (
           <p>
             Please{" "}
             <span
@@ -42,7 +49,7 @@ const Forums = () => {
           <ThreadDetails
             key={index}
             thread={thread}
-            isAuthenticated={isAuthenticated}
+            isAuthenticated={getToken()}
             onUpvote={() => handleUpvote(thread.id)}
           />
         ))}

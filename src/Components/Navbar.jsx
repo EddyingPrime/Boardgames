@@ -1,33 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { UseAuth } from "../authentication/UseAuth";
+import { useAuth } from "../authentication/useAuth";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { getToken, logout } = useAuth();
+  const isAuthenticated = !!getToken();
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
-
-  const closeNavbar = () => {
-    setIsOpen(false);
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768) {
-        // Close the navbar if the window is resized to a larger size than mobile
-        setIsOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   // Move the hook calls here
   const isAuthenticated = UseAuth().isAuthenticated;
