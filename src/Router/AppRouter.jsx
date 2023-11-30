@@ -16,6 +16,7 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Main Layout with Navbar and Footer */}
         <Route
           path="/*"
           element={[
@@ -25,15 +26,16 @@ export default function AppRouter() {
               <Route path="/forums/*" element={<Forums />} />
               <Route path="/games" element={<Games />} />
               <Route path="/cafe/*" element={<Cafe />} />
-              <Route path="*" element={<NotFound />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/Uno" element={<Uno />} />
               <Route path="/King" element={<King />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>,
-            <Footer key="Footer" />,
+            <Footer key="footer" />,
           ]}
         />
 
+        {/* Login and Registration Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
       </Routes>

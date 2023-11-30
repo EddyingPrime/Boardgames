@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import ThreadForm from "../Components/ThreadForm";
 import ThreadDetails from "../Components/ThreadDetails";
-import { UseAuth } from "../authentication/UseAuth";
+import { useAuth } from "../authentication/useAuth";
 
 const Forums = () => {
-  const { isAuthenticated } = UseAuth();
+  const { isAuthenticated } = useAuth();
   const [threads, setThreads] = useState([]);
   const navigate = useNavigate();
 

@@ -1,14 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
-import { UseAuth } from "../authentication/UseAuth";
+import { useAuth } from "../authentication/useAuth";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const { login } = UseAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    rememberMe: false, // New state for Remember Me checkbox
   });
 
   const [loading, setLoading] = useState(false);
@@ -17,27 +18,25 @@ export default function Login() {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]:
+        e.target.type === "checkbox" ? e.target.checked : e.target.value,
     });
   };
 
   const saveToLocalStorage = (data) => {
     localStorage.setItem("userData", JSON.stringify(data));
 
-    // Save other user data if needed
-    // For example, if you want to save the user's name
-    localStorage.setItem("userName", data.user.name);
+    // Check if data.user exists before accessing its properties
+    if (data.user && data.user.name) {
+      // Save other user data if needed
+      localStorage.setItem("userName", data.user.name);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const csrfToken = document.head.querySelector(
-        'meta[name="csrf-token"]'
-      ).content;
-      axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
-
       const response = await axios.post(
         "http://localhost:8000/api/login",
         formData
@@ -46,30 +45,31 @@ export default function Login() {
       console.log("Login response:", response.data);
 
       if (response.data.token) {
-        // Save the token to local storage
         login(response.data.token);
 
-        // Save other user data if needed
+        console.log(response.data.token);
+
         if (response.data.user) {
           saveToLocalStorage(response.data.user);
         }
 
-        // Redirect to the desired page after successful login
-        navigate("/profile"); // Replace "/profile" with the desired route
+        navigate("/");
       } else {
         setError("Invalid email or password. Please try again.");
       }
     } catch (error) {
       console.error("Login error:", error);
 
-      // Check if the error object and its response property are defined
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        setError(error.response.data.message);
+      if (error.response) {
+        // Server returned an error response
+        setError(
+          error.response.data.message || "An unexpected error occurred."
+        );
+      } else if (error.request) {
+        // The request was made but no response was received
+        setError("Network error. Please check your internet connection.");
       } else {
+        // Something happened in setting up the request
         setError("An unexpected error occurred. Please try again.");
       }
     } finally {
@@ -121,6 +121,18 @@ export default function Login() {
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-orange"
             required
           />
+        </div>
+        <div className="mb-4">
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              name="rememberMe"
+              checked={formData.rememberMe}
+              onChange={handleChange}
+              className="mr-2"
+            />
+            <span className="text-sm">Remember Me</span>
+          </label>
         </div>
         <button
           type="submit"

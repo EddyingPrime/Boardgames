@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useAuth } from "../authentication/useAuth";
 
 const Profile = () => {
+  const { getToken } = useAuth();
+
   const [profileImage, setProfileImage] = useState("");
   const [coverImage, setCoverImage] = useState("");
   const [name, setName] = useState("");
@@ -8,12 +12,76 @@ const Profile = () => {
   const [location, setLocation] = useState("");
   const [editing, setEditing] = useState(false);
 
-  const handleProfileImageChange = (e) => {
-    setProfileImage(URL.createObjectURL(e.target.files[0]));
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = getToken();
+        const response = await axios.get("http://localhost:8000/api/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        console.log("Token:", getToken());
+        const userData = response.data;
+
+        setName(userData.name);
+        setEmail(userData.email);
+        setLocation(userData.location);
+        setProfileImage(userData.profileImage);
+        setCoverImage(userData.coverImage);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [getToken]);
+
+  const handleProfileImageChange = async (e) => {
+    const formData = new FormData();
+    formData.append("profileImage", e.target.files[0]);
+
+    try {
+      const token = getToken();
+      const response = await axios.post(
+        "http://localhost:8000/api/update-avatar",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const newProfileImage = response.data.url;
+      setProfileImage(newProfileImage);
+    } catch (error) {
+      console.error("Error uploading profile image:", error);
+    }
   };
 
-  const handleCoverImageChange = (e) => {
-    setCoverImage(URL.createObjectURL(e.target.files[0]));
+  const handleCoverImageChange = async (e) => {
+    const formData = new FormData();
+    formData.append("coverImage", e.target.files[0]);
+
+    try {
+      const token = getToken();
+      const response = await axios.post(
+        "http://localhost:8000/api/update-cover-image",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const newCoverImage = response.data.url;
+      setCoverImage(newCoverImage);
+    } catch (error) {
+      console.error("Error uploading cover image:", error);
+    }
   };
 
   const handleNameChange = (e) => {
@@ -28,8 +96,26 @@ const Profile = () => {
     setLocation(e.target.value);
   };
 
-  const handleSaveChanges = () => {
-    setEditing(false);
+  const handleSaveChanges = async () => {
+    const updatedUserData = {
+      name,
+      email,
+      location,
+      profileImage,
+      coverImage,
+    };
+
+    try {
+      const token = getToken();
+      await axios.post("http://localhost:8000/api/profile", updatedUserData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setEditing(false);
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+    }
   };
 
   return (
@@ -62,7 +148,7 @@ const Profile = () => {
           />
           <label htmlFor="profilePicInput">
             <img
-              src={profileImage || ""}
+              src={profileImage || "path/to/default/profile-image.jpg"}
               alt="Profile"
               className="w-32 h-32 rounded-full cursor-pointer"
             />
