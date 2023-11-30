@@ -31,6 +31,8 @@ export default function Login() {
       // Save other user data if needed
       localStorage.setItem("userName", data.user.name);
     }
+
+    localStorage.setItem("token", data.token);
   };
 
   const handleSubmit = async (e) => {

@@ -4,7 +4,6 @@ import { useAuth } from "../authentication/useAuth";
 
 const Profile = () => {
   const { getToken } = useAuth();
-
   const [profileImage, setProfileImage] = useState("");
   const [coverImage, setCoverImage] = useState("");
   const [name, setName] = useState("");
@@ -16,12 +15,13 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         const token = getToken();
+        console.log("Token in Profile:", token);
         const response = await axios.get("http://localhost:8000/api/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
+        console.log("User data:", response.data);
         console.log("Token:", getToken());
         const userData = response.data;
 
