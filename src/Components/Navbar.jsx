@@ -6,10 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-<<<<<<< Updated upstream
-
-  
-=======
   const { getToken, logout } = useAuth();
   const isAuthenticated = !!getToken();
   const navigate = useNavigate();
@@ -21,14 +17,9 @@ const Navbar = () => {
     // Redirect to the home page after logout
     navigate("/");
   };
->>>>>>> Stashed changes
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
-  };
-
-  const closeNavbar = () => {
-    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -45,12 +36,6 @@ const Navbar = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  // Move the hook calls here
-  const isAuthenticated = useAuth().isAuthenticated;
-  const logout = useAuth().logout;
-
-  
 
   return (
     <nav className="bg-white p-4 border">
@@ -99,7 +84,7 @@ const Navbar = () => {
                 <li className="laptop:flex phone:hidden">
                   <Link
                     to="/profile"
-                    className="text-orange hover:text-gray-300 ml-20"
+                    className="block py-2 shadow-md shadow-black  px-3 text-black hover:text-black uppercase ml-40"
                   >
                     Profile
                   </Link>
@@ -107,7 +92,7 @@ const Navbar = () => {
                 <li className="laptop:flex phone:hidden">
                   <button
                     onClick={handleLogout}
-                    className="block text-orange hover:text-gray-300 ml-5"
+                    className="block py-2 shadow-md shadow-black  px-3 text-black hover:text-black uppercase -ml-5"
                   >
                     Logout
                   </button>
@@ -172,22 +157,34 @@ const Navbar = () => {
         <div className="md:hidden">
           <ul className="mt-2">
             <li>
-              <Link to="/" className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase">
+              <Link
+                to="/"
+                className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase"
+              >
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/games" className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase">
+              <Link
+                to="/games"
+                className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase"
+              >
                 Games
               </Link>
             </li>
             <li>
-              <Link to="/cafe" className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase">
+              <Link
+                to="/cafe"
+                className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase"
+              >
                 Cafe
               </Link>
             </li>
             <li>
-              <Link to="/forums" className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase">
+              <Link
+                to="/forums"
+                className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase"
+              >
                 Forums
               </Link>
             </li>
@@ -197,12 +194,18 @@ const Navbar = () => {
             {isAuthenticated ? (
               <>
                 <li>
-                  <Link to="/profile" className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase">
+                  <Link
+                    to="/profile"
+                    className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase"
+                  >
                     Profile
                   </Link>
                 </li>
                 <li>
-                  <button onClick={logout} className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase">
+                  <button
+                    onClick={logout}
+                    className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase"
+                  >
                     Logout
                   </button>
                 </li>
@@ -210,12 +213,18 @@ const Navbar = () => {
             ) : (
               <>
                 <li>
-                  <Link to="/login" className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase">
+                  <Link
+                    to="/login"
+                    className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase"
+                  >
                     Login
                   </Link>
                 </li>
                 <li>
-                  <Link to="/register" className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase">
+                  <Link
+                    to="/register"
+                    className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase"
+                  >
                     Register
                   </Link>
                 </li>
