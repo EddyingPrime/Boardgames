@@ -1,16 +1,33 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { useAuth } from "../authentication/useAuth";
+import { UseAuth } from "../authentication/UseAuth";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { getToken, logout } = useAuth();
-  const isAuthenticated = !!getToken();
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
+
+  const closeNavbar = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        // Close the navbar if the window is resized to a larger size than mobile
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   // Move the hook calls here
   const isAuthenticated = UseAuth().isAuthenticated;
@@ -52,11 +69,7 @@ const Navbar = () => {
             <li className="laptop:flex phone:hidden">
               <Link
                 to="/forums"
-<<<<<<< Updated upstream
-                className="text-orange hover:text-gray-300 -ml-[150px]"
-=======
                 className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-orange uppercase -ml-[60px]"
->>>>>>> Stashed changes
               >
                 Forums
               </Link>
