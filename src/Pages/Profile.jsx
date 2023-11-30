@@ -4,32 +4,49 @@ import { useAuth } from "../authentication/useAuth";
 
 const Profile = () => {
   const { getToken } = useAuth();
-  const [profileImage, setProfileImage] = useState("");
-  const [coverImage, setCoverImage] = useState("");
+  const [avatar, setProfileImage] = useState("");
+  const [cover_image, setCoverImage] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [location, setLocation] = useState("");
   const [editing, setEditing] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        // Get the token
         const token = getToken();
-        console.log("Token in Profile:", token);
-        const response = await axios.get("http://localhost:8000/api/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log("User data:", response.data);
-        console.log("Token:", getToken());
-        const userData = response.data;
 
-        setName(userData.name);
-        setEmail(userData.email);
-        setLocation(userData.location);
-        setProfileImage(userData.profileImage);
-        setCoverImage(userData.coverImage);
+        // Check if the token is available
+        if (token) {
+          // Use the token in the headers
+          const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          };
+
+          // Make the request
+          const response = await axios.get(
+            "http://localhost:8000/api/profile",
+            config
+          );
+
+          console.log("User data:", response.data);
+          console.log("Token:", token);
+
+          const userData = response.data.user;
+
+          setName(userData.name);
+          console.log(userData.name);
+          setEmail(userData.email);
+          console.log(userData.email);
+          setProfileImage(userData.avatar);
+          console.log(userData.avatar);
+          setCoverImage(userData.cover_image);
+          console.log(userData.cover_image);
+        } else {
+          console.log("Token is null. User not authenticated.");
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -45,7 +62,7 @@ const Profile = () => {
     try {
       const token = getToken();
       const response = await axios.post(
-        "http://localhost:8000/api/update-avatar",
+        "http://localhost:8000/api/update-profile",
         formData,
         {
           headers: {
@@ -63,12 +80,12 @@ const Profile = () => {
 
   const handleCoverImageChange = async (e) => {
     const formData = new FormData();
-    formData.append("coverImage", e.target.files[0]);
+    formData.append("coverimage", e.target.files[0]);
 
     try {
       const token = getToken();
       const response = await axios.post(
-        "http://localhost:8000/api/update-cover-image",
+        "http://localhost:8000/api/update-profile",
         formData,
         {
           headers: {
@@ -92,26 +109,25 @@ const Profile = () => {
     setEmail(e.target.value);
   };
 
-  const handleLocationChange = (e) => {
-    setLocation(e.target.value);
-  };
-
   const handleSaveChanges = async () => {
     const updatedUserData = {
       name,
       email,
-      location,
-      profileImage,
-      coverImage,
+      avatar,
+      cover_image,
     };
 
     try {
       const token = getToken();
-      await axios.post("http://localhost:8000/api/profile", updatedUserData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.post(
+        "http://localhost:8000/api/update-profile",
+        updatedUserData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setEditing(false);
     } catch (error) {
       console.error("Error updating user profile:", error);
@@ -129,11 +145,7 @@ const Profile = () => {
           id="coverPicInput"
         />
         <label htmlFor="coverPicInput">
-          <img
-            src={coverImage}
-            alt="Cover"
-            className="w-full h-full cursor-pointer"
-          />
+          <img src={cover_image} alt="Cover" />
         </label>
       </div>
 
@@ -147,11 +159,7 @@ const Profile = () => {
             id="profilePicInput"
           />
           <label htmlFor="profilePicInput">
-            <img
-              src={profileImage || "path/to/default/profile-image.jpg"}
-              alt="Profile"
-              className="w-32 h-32 rounded-full cursor-pointer"
-            />
+            <img src={avatar} alt="Profile" />
           </label>
           {/* User Info */}
           <div>
@@ -171,13 +179,6 @@ const Profile = () => {
                   onChange={handleEmailChange}
                   className="block border border-gray rounded-md px-4 py-2 w-full mb-2"
                 />
-                <input
-                  type="text"
-                  placeholder="Location"
-                  value={location}
-                  onChange={handleLocationChange}
-                  className="block border border-gray rounded-md px-4 py-2 w-full mb-2"
-                />
                 <button
                   onClick={handleSaveChanges}
                   className="bg-blue text-white font-semibold py-2 px-4 rounded focus:outline-none"
@@ -189,7 +190,6 @@ const Profile = () => {
               <div>
                 <h1 className="text-3xl font-semibold">{name}</h1>
                 <p className="text-gray-600">{email}</p>
-                <p className="text-gray-600">{location}</p>
                 <button
                   onClick={() => setEditing(true)}
                   className="bg-blue text-white font-semibold py-2 px-4 mt-2 rounded focus:outline-none"

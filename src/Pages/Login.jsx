@@ -53,6 +53,7 @@ export default function Login() {
 
         if (response.data.user) {
           saveToLocalStorage(response.data.user);
+          localStorage.setItem("token", response.data.token);
         }
 
         navigate("/");

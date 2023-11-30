@@ -2,11 +2,26 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { useAuth } from "../authentication/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+<<<<<<< Updated upstream
 
   
+=======
+  const { getToken, logout } = useAuth();
+  const isAuthenticated = !!getToken();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Perform logout logic (clear token, etc.)
+    logout();
+
+    // Redirect to the home page after logout
+    navigate("/");
+  };
+>>>>>>> Stashed changes
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -91,8 +106,8 @@ const Navbar = () => {
                 </li>
                 <li className="laptop:flex phone:hidden">
                   <button
-                    onClick={logout}
-                    className="text-orange hover:text-gray-300 ml-5"
+                    onClick={handleLogout}
+                    className="block text-orange hover:text-gray-300 ml-5"
                   >
                     Logout
                   </button>
