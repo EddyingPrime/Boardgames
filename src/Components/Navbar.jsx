@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { UseAuth } from "../authentication/UseAuth";
+import { useAuth } from "../authentication/useAuth";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -30,8 +32,10 @@ const Navbar = () => {
   }, []);
 
   // Move the hook calls here
-  const isAuthenticated = UseAuth().isAuthenticated;
-  const logout = UseAuth().logout;
+  const isAuthenticated = useAuth().isAuthenticated;
+  const logout = useAuth().logout;
+
+  
 
   return (
     <nav className="bg-white p-4 border">
