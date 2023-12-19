@@ -11,6 +11,8 @@ import images6 from "../assets/Nucleum.png";
 import images7 from "../assets/Voidfall.png";
 import images8 from "../assets/WhiteCastle.png";
 
+import '../Components/Featured.css';
+
 const Featured = () => {
   const categories = [
     { id: 1, name: 'UNO', link: '/uno', image: images1 },
@@ -37,15 +39,16 @@ const Featured = () => {
   };
 
   return (
-    <div className="container mx-auto px-2 py-5 mb-5">
-  <div className="bg-black rounded-lg overflow-hidden shadow-md text-center p-4 mb-4 font-sora">
+    <div className="container mx-auto px-7 py-5 mb-5 bg-black shadow-md rounded-md shadow-black">
+  <div className="bg-black rounded-lg overflow-hidden shadow-md shadow-white text-center p-4 mb-4 font-sora">
     <h2 className="text-5xl font-bold font-montserrat text-white">Explore Our Game Collection</h2>
   </div>
   <Slider {...sliderSettings}>
     {categories.map((category) => (
       <div key={category.id} className="px-1">
         <Link to={category.link} className="block">
-          <div className="bg-white border rounded-lg overflow-hidden shadow-md">
+        <div className="zoom-effect">
+          <div className="bg-gray border rounded-lg overflow-hidden shadow-md">
             <img
               src={category.image}
               alt={category.name}
@@ -53,6 +56,7 @@ const Featured = () => {
             />
             <div className="p-2">
               <h3 className="text-xl font-semibold mb-2 text-black">{category.name}</h3>
+            </div>
             </div>
           </div>
         </Link>

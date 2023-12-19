@@ -9,7 +9,7 @@ import TableTaft from '../assets/TableTaft.png';
 import GameOver from '../assets/GameOver.png';
 import Hungry from '../assets/Hungry.png';
 import Happy from '../assets/Happy.png';
-import List1 from '../assets/list1.jpg'
+
 
 
 const Home = () => {
