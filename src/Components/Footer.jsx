@@ -92,9 +92,6 @@ const Footer = () => {
           <li className="mb-2 hover:underline">
             <a href="#">Beginner's Guide</a>
           </li>
-          <li className="mb-2 hover:underline">
-            <a href="#">Tournaments</a>
-          </li>
         </ul>
 
         <h3 className="text-lg md:text-xl font-bold mt-5">FOLLOW US ON</h3>

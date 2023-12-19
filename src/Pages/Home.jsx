@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Hero from "../Components/Hero";
+import Dice from "../Components/Dice";
 import Featured from "../Components/Featured";
 import TableTaft from '../assets/TableTaft.png';
 import GameOver from '../assets/GameOver.png';
@@ -97,26 +98,11 @@ const Home = () => {
             So grab your favorite game, gather your friends, and let’s embark on a journey through the world of board games as we explore the lessons they teach us, the memories they create, and the stories they tell.
           </p>
         </div>
+
+        <Dice/>
         
-<div className="w-30 p-4">
-          <div className="mb-8 ">
-            <div className="relative">
-              <div className="w-[300px] h-[300px] ml-[20%] shadow-sm rounded overflow-hidden relative">
-                <img
-                  src={List1}
-                  alt="Sample"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="bg-gray bg-opacity-60 rounded-sm absolute mt-10 top-12 left-[40%] flex items-center justify-center text-black text-4xl font-bold">
-              The dice never lie; 
-              </div>
-              <div className="bg-gray bg-opacity-60 absolute mt-14 top-20 left-[40%] flex items-center justify-center text-black text-4xl font-bold">
-              they're a reflection of life's randomness.
-              </div>
-            </div>
-      
-        </div>
+
+
             <Featured />
             <div className="bg-gray text-black py-8">
   <div className="container mx-auto text-center">
@@ -182,7 +168,7 @@ const Home = () => {
               </div>
               </div>
               </div>
-              </div>
+
 
 
     </>
