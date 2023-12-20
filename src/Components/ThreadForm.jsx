@@ -1,9 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
-import { useAuth } from "../authentication/useAuth";
+import http from "../Http/http";
 
 export default function ThreadForm() {
-  const { authToken } = useAuth();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState(null);
@@ -12,17 +10,13 @@ export default function ThreadForm() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/forums/threads",
+      const response = await http().post(
+        "/forums/threads",
         {
           title,
           content,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
+        {}
       );
 
       console.log("Thread creation response:", response.data);

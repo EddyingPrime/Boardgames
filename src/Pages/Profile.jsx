@@ -1,75 +1,35 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { useAuth } from "../authentication/useAuth";
+import http from "../Http/http";
 
 const Profile = () => {
-  const { getToken } = useAuth();
-  const [avatar, setProfileImage] = useState("");
+  const [avatar, setAvatarImage] = useState("");
   const [cover_image, setCoverImage] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [avatarFile, setAvatarFile] = useState(null);
-  const [coverImageFile, setCoverImageFile] = useState(null);
+  const [avatarFile, setAvatarFile] = useState("");
+  const [coverImageFile, setCoverImageFile] = useState("");
   const [editing, setEditing] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const token = getToken();
+        // Modify the URL as needed
+        const response = await http().get("/profile");
 
-        if (token) {
-          const config = {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          };
+        console.log("User data:", response.data);
 
-          const response = await axios.get(
-            "http://localhost:8000/api/profile",
-            config
-          );
-
-          console.log("User data:", response.data);
-          console.log("Token:", token);
-
-          const userData = response.data.user;
-
-          setName(userData.name);
-          console.log(userData.name);
-          setEmail(userData.email);
-          console.log(userData.email);
-
-          const storedAvatar = localStorage.getItem("avatar");
-          const storedCoverImage = localStorage.getItem("cover_image");
-
-          setProfileImage(storedAvatar || userData.avatar);
-          setCoverImage(storedCoverImage || userData.cover_image);
-        } else {
-          console.log("Token is null. User not authenticated.");
-        }
+        const userData = response.data.user;
+        setName(userData.name);
+        setEmail(userData.email);
+        setAvatarImage(`http://localhost:8000//${userData.avatar}`);
+        setCoverImage(`http://localhost:8000/${userData.cover_image}`);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
 
     fetchUserData();
-  }, [getToken]);
-
-  useEffect(() => {
-    if (avatarFile) {
-      const imageUrl = URL.createObjectURL(avatarFile);
-      setProfileImage(imageUrl);
-      localStorage.setItem("avatar", imageUrl);
-    }
-  }, [avatarFile]);
-
-  useEffect(() => {
-    if (coverImageFile) {
-      const imageUrl = URL.createObjectURL(coverImageFile);
-      setCoverImage(imageUrl);
-      localStorage.setItem("cover_image", imageUrl);
-    }
-  }, [coverImageFile]);
+  }, [avatar, cover_image]);
 
   const handleSaveChanges = async () => {
     const formData = new FormData();
@@ -87,13 +47,7 @@ const Profile = () => {
     formData.append("email", email);
 
     try {
-      const token = getToken();
-      await axios.post("http://localhost:8000/api/update-profile", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await http().post("/update-profile", formData, {});
 
       setEditing(false);
     } catch (error) {
@@ -130,7 +84,7 @@ const Profile = () => {
           id="coverPicInput"
         />
         <label htmlFor="coverPicInput">
-          <img src={cover_image} alt="Cover" />
+          <img src={{ cover_image }} alt="Cover" />
         </label>
       </div>
 
@@ -143,8 +97,8 @@ const Profile = () => {
             className=""
             id="profilePicInput"
           />
-          <label htmlFor="profilePicInput">
-            <img src={avatar} alt="Profile" />
+          <label>
+            <img src={{ avatar }} alt="Avatar" style={{ maxWidth: "100px" }} />
           </label>
           {/* User Info */}
           <div>

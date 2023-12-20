@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import http from "../Http/http";
 
 const itemsPerPage = 8;
 
@@ -10,10 +10,8 @@ const Games = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/api/board-games"
-        );
-        setBoardGames(response.data.data); // Assuming the API response has a 'data' property
+        const response = await http().get("/board-games");
+        setBoardGames(response.data.data);
       } catch (error) {
         console.error("Error fetching board games:", error);
       }

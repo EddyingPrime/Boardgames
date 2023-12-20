@@ -2,37 +2,30 @@ import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import ThreadForm from "../Components/ThreadForm";
 import ThreadDetails from "../Components/ThreadDetails";
-import { useAuth } from "../authentication/useAuth";
 
 const Forums = () => {
-  const { getToken } = useAuth();
   const [threads, setThreads] = useState([]);
   const navigate = useNavigate();
 
   const handleThreadFormSubmit = (newThread) => {
-    const token = getToken();
-    if (token) {
-      // User is logged in, allow thread submission
-      setThreads([...threads, newThread]);
-    } else {
-      // User is not logged in, redirect to login page
-      navigate("/login");
-    }
+    // In a real application, you would likely send the newThread data to the backend
+    // and add the new thread to the list once the backend confirms success.
+    // For simplicity, I'm just adding it directly to the list here.
+    setThreads([...threads, newThread]);
   };
 
   const handleUpvote = (threadId) => {
-    if (getToken()) {
-      console.log(`Upvoting thread with ID: ${threadId}`);
-    } else {
-      navigate("/login");
-    }
+    // Similar to handleThreadFormSubmit, you would likely send an upvote request to the backend.
+    // For simplicity, I'm just logging it here.
+    console.log(`Upvoting thread with ID: ${threadId}`);
   };
 
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="container mx-auto p-8">
-        {getToken() && <ThreadForm onSubmit={handleThreadFormSubmit} />}
-        {!getToken() && (
+        <ThreadForm onSubmit={handleThreadFormSubmit} />
+
+        {!localStorage.getItem("token") && (
           <p>
             Please{" "}
             <span
@@ -49,7 +42,7 @@ const Forums = () => {
           <ThreadDetails
             key={index}
             thread={thread}
-            isAuthenticated={getToken()}
+            isAuthenticated={localStorage.getItem("token")}
             onUpvote={() => handleUpvote(thread.id)}
           />
         ))}

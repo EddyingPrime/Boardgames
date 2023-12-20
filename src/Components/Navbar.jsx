@@ -1,21 +1,36 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { useAuth } from "../authentication/useAuth";
 import { useNavigate } from "react-router-dom";
+import http from "../Http/http";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { getToken, logout } = useAuth();
-  const isAuthenticated = !!getToken();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const handleLogout = () => {
-    // Perform logout logic (clear token, etc.)
-    logout();
+  const handleLogout = async () => {
+    setLoading(true);
 
-    // Redirect to the home page after logout
-    navigate("/");
+    try {
+      // Make a request to log out
+      const response = await http().post("/logout");
+
+      // Log the response from the server
+      console.log("Logout response:", response);
+
+      // Redirect to the home page after logout
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+
+      // Log any specific error message from the server (if available)
+      if (error.response) {
+        console.error("Server error message:", error.response.data);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const toggleNavbar = () => {
@@ -49,7 +64,7 @@ const Navbar = () => {
             <li className="laptop:flex phone:hidden">
               <Link
                 to="/"
-                className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange bg px-4 text-black hover:text-orange uppercase -ml-[200px]"
+                className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-orange uppercase -ml-[200px]"
               >
                 Home
               </Link>
@@ -78,46 +93,24 @@ const Navbar = () => {
                 Forums
               </Link>
             </li>
-            {/* Conditionally render links based on authentication status */}
-            {isAuthenticated ? (
-              <>
-                <li className="laptop:flex phone:hidden">
-                  <Link
-                    to="/profile"
-                    className="block py-2 shadow-md shadow-black  px-3 text-black hover:text-black uppercase ml-40"
-                  >
-                    Profile
-                  </Link>
-                </li>
-                <li className="laptop:flex phone:hidden">
-                  <button
-                    onClick={handleLogout}
-                    className="block py-2 shadow-md shadow-black  px-3 text-black hover:text-black uppercase -ml-5"
-                  >
-                    Logout
-                  </button>
-                </li>
-              </>
-            ) : (
-              <>
-                <li className="laptop:flex phone:hidden">
-                  <Link
-                    to="/login"
-                    className="block py-2 shadow-md shadow-black  px-3 text-black hover:text-black uppercase ml-40"
-                  >
-                    Login
-                  </Link>
-                </li>
-                <li className="laptop:flex phone:hidden">
-                  <Link
-                    to="/register"
-                    className="block py-2 shadow-md shadow-black  px-3 text-black hover:text-black uppercase -ml-5"
-                  >
-                    Register
-                  </Link>
-                </li>
-              </>
-            )}
+            {/* Replace the following links with your actual routes */}
+            <li className="laptop:flex phone:hidden">
+              <Link
+                to="/profile"
+                className="block py-2 shadow-md shadow-black  px-3 text-black hover:text-black uppercase ml-40"
+              >
+                Profile
+              </Link>
+            </li>
+            <li className="laptop:flex phone:hidden">
+              <button
+                onClick={handleLogout}
+                disabled={loading}
+                className="block py-2 shadow-md shadow-black  px-3 text-black hover:text-black uppercase -ml-5"
+              >
+                Logout
+              </button>
+            </li>
           </ul>
         </div>
 
@@ -155,82 +148,7 @@ const Navbar = () => {
       {/* Mobile menu */}
       {isOpen && (
         <div className="md:hidden">
-          <ul className="mt-2">
-            <li>
-              <Link
-                to="/"
-                className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/games"
-                className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase"
-              >
-                Games
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/cafe"
-                className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase"
-              >
-                Cafe
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/forums"
-                className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-black uppercase"
-              >
-                Forums
-              </Link>
-            </li>
-          </ul>
-          <ul className="mt-2">
-            {/* Conditionally render links based on authentication status */}
-            {isAuthenticated ? (
-              <>
-                <li>
-                  <Link
-                    to="/profile"
-                    className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase"
-                  >
-                    Profile
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    onClick={logout}
-                    className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase"
-                  >
-                    Logout
-                  </button>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <Link
-                    to="/login"
-                    className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase"
-                  >
-                    Login
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/register"
-                    className="block py-2 shadow-md shadow-black  px-4 text-black hover:text-black uppercase"
-                  >
-                    Register
-                  </Link>
-                </li>
-              </>
-            )}
-          </ul>
+          <ul className="mt-2">{/* Your mobile menu items here */}</ul>
         </div>
       )}
     </nav>
