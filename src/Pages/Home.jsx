@@ -100,9 +100,6 @@ const Home = () => {
         </div>
 
         <Dice/>
-        
-
-
             <Featured />
             <div className="bg-gray text-black py-8">
   <div className="container mx-auto text-center">
