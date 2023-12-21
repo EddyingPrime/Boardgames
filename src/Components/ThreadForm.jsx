@@ -11,7 +11,7 @@ export default function ThreadForm() {
 
     try {
       const response = await http().post(
-        "/forums/threads",
+        "/threads",
         {
           title,
           content,

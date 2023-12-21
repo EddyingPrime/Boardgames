@@ -1,30 +1,26 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { useNavigate } from "react-router-dom";
 import http from "../Http/http";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
   const handleLogout = async () => {
     setLoading(true);
 
     try {
-      // Make a request to log out
       const response = await http().post("/logout");
-
-      // Log the response from the server
       console.log("Logout response:", response);
+      navigate("/");
 
-      // Redirect to the home page after logout
-      navigate("/login");
+      localStorage.removeItem("token");
+      setIsLoggedIn(false);
     } catch (error) {
       console.error("Logout failed:", error);
-
-      // Log any specific error message from the server (if available)
       if (error.response) {
         console.error("Server error message:", error.response.data);
       }
@@ -40,7 +36,6 @@ const Navbar = () => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
-        // Close the navbar if the window is resized to a larger size than mobile
         setIsOpen(false);
       }
     };
@@ -72,7 +67,7 @@ const Navbar = () => {
             <li className="laptop:flex phone:hidden">
               <Link
                 to="/games"
-                className="block py-2 shadow-md shadow-orange  focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-orange uppercase -ml-[150px]"
+                className="block py-2 shadow-md shadow-orange focus:outline-none focus:ring focus:ring-orange px-4 text-black hover:text-orange uppercase -ml-[150px]"
               >
                 Games
               </Link>
@@ -93,24 +88,46 @@ const Navbar = () => {
                 Forums
               </Link>
             </li>
-            {/* Replace the following links with your actual routes */}
-            <li className="laptop:flex phone:hidden">
-              <Link
-                to="/profile"
-                className="block py-2 shadow-md shadow-black  px-3 text-black hover:text-black uppercase ml-40"
-              >
-                Profile
-              </Link>
-            </li>
-            <li className="laptop:flex phone:hidden">
-              <button
-                onClick={handleLogout}
-                disabled={loading}
-                className="block py-2 shadow-md shadow-black  px-3 text-black hover:text-black uppercase -ml-5"
-              >
-                Logout
-              </button>
-            </li>
+            {isLoggedIn ? (
+              <>
+                <li className="laptop:flex phone:hidden">
+                  <Link
+                    to="/profile"
+                    className="block py-2 shadow-md shadow-black px-3 text-black hover:text-black uppercase ml-40"
+                  >
+                    Profile
+                  </Link>
+                </li>
+                <li className="laptop:flex phone:hidden">
+                  <button
+                    onClick={handleLogout}
+                    disabled={loading}
+                    className="block py-2 shadow-md shadow-black px-3 text-black hover:text-black uppercase -ml-5"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="laptop:flex phone:hidden">
+                  <Link
+                    to="/login"
+                    className="block py-2 shadow-md shadow-black px-3 text-black hover:text-black uppercase ml-40"
+                  >
+                    Login
+                  </Link>
+                </li>
+                <li className="laptop:flex phone:hidden">
+                  <Link
+                    to="/register"
+                    className="block py-2 shadow-md shadow-black px-3 text-black hover:text-black uppercase -ml-5"
+                  >
+                    Register
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
 
@@ -143,14 +160,86 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
-      </div>
 
-      {/* Mobile menu */}
-      {isOpen && (
-        <div className="md:hidden">
-          <ul className="mt-2">{/* Your mobile menu items here */}</ul>
-        </div>
-      )}
+        {isOpen && (
+          <div className="md:hidden absolute top-16 right-4 bg-white shadow-md p-2 rounded-md">
+            <ul className="mt-2">
+              <li>
+                <Link
+                  to="/"
+                  className="block text-black hover:text-black uppercase"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/games"
+                  className="block text-black hover:text-black uppercase"
+                >
+                  Games
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/cafe"
+                  className="block text-black hover:text-black uppercase"
+                >
+                  Cafe
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/forums"
+                  className="block text-black hover:text-black uppercase"
+                >
+                  Forums
+                </Link>
+              </li>
+              {isLoggedIn ? (
+                <>
+                  <li>
+                    <Link
+                      to="/profile"
+                      className="block text-black hover:text-black uppercase"
+                    >
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      disabled={loading}
+                      className="block text-black hover:text-black uppercase"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link
+                      to="/login"
+                      className="block text-black hover:text-black uppercase"
+                    >
+                      Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/register"
+                      className="block text-black hover:text-black uppercase"
+                    >
+                      Register
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
+          </div>
+        )}
+      </div>
     </nav>
   );
 };

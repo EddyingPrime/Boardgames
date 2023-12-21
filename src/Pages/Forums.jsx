@@ -1,22 +1,53 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import ThreadForm from "../Components/ThreadForm";
 import ThreadDetails from "../Components/ThreadDetails";
+import http from "../Http/http";
 
 const Forums = () => {
   const [threads, setThreads] = useState([]);
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
-  const handleThreadFormSubmit = (newThread) => {
-    // In a real application, you would likely send the newThread data to the backend
-    // and add the new thread to the list once the backend confirms success.
-    // For simplicity, I'm just adding it directly to the list here.
-    setThreads([...threads, newThread]);
+  useEffect(() => {
+    const fetchThreads = async () => {
+      try {
+        const response = await http().get("/threads");
+        console.log("Threads response:", response);
+        setThreads(response.data.threads);
+      } catch (error) {
+        console.error("Error fetching threads:", error);
+      }
+    };
+
+    fetchThreads();
+  }, []);
+
+  const handleThreadFormSubmit = async (newThread) => {
+    try {
+      if (!user) {
+        console.error("User not logged in.");
+        return;
+      }
+
+      const response = await http().post("/threads", {
+        ...newThread,
+        user_id: user.user_id,
+      });
+
+      console.log("Response from server:", response);
+
+      setThreads((prevThreads) =>
+        prevThreads !== null
+          ? [...prevThreads, response.data.thread]
+          : [response.data.thread]
+      );
+    } catch (error) {
+      console.error("Error creating thread:", error);
+    }
   };
 
   const handleUpvote = (threadId) => {
-    // Similar to handleThreadFormSubmit, you would likely send an upvote request to the backend.
-    // For simplicity, I'm just logging it here.
     console.log(`Upvoting thread with ID: ${threadId}`);
   };
 
@@ -38,9 +69,9 @@ const Forums = () => {
           </p>
         )}
 
-        {threads.map((thread, index) => (
+        {threads.map((thread) => (
           <ThreadDetails
-            key={index}
+            key={thread.id}
             thread={thread}
             isAuthenticated={localStorage.getItem("token")}
             onUpvote={() => handleUpvote(thread.id)}
