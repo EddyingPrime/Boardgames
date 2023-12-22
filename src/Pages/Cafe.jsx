@@ -127,13 +127,29 @@ const Cafe = () => {
             <label htmlFor="date" className="block text-gray-700 font-bold mb-2">
               Date
             </label>
-            {/* Add input for Date */}
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value={reservationData.date}
+              onChange={handleReservationChange}
+              className="border border-gray-300 px-3 py-2 rounded w-full focus:outline-none focus:border-blue-500"
+              required
+            />
           </div>
           <div className="mb-4">
             <label htmlFor="time" className="block text-gray-700 font-bold mb-2">
               Time
             </label>
-            {/* Add input for Time */}
+            <input
+              type="time"
+              id="time"
+              name="time"
+              value={reservationData.time}
+              onChange={handleReservationChange}
+              className="border border-gray-300 px-3 py-2 rounded w-full focus:outline-none focus:border-blue-500"
+              required
+            />
           </div>
           <div className="mb-4">
             <label htmlFor="seats" className="block text-gray-700 font-bold mb-2">
