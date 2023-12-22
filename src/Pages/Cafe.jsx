@@ -1,4 +1,5 @@
 import { Link, Route, Routes } from "react-router-dom";
+import React, { useState } from 'react';
 import ReservationPage from "../Components/ReservationPage";
 import TableTaft from '../assets/TableTaft.png';
 import GameOver from '../assets/GameOver.png';
@@ -57,6 +58,28 @@ const Cafe = () => {
       },
     ],
   };
+  const [reservationData, setReservationData] = useState({
+    name: '',
+    date: '',
+    time: '',
+    seats: 1,
+  });
+
+  const handleReservationChange = (e) => {
+    const { name, value } = e.target;
+    setReservationData({
+      ...reservationData,
+      [name]: value,
+    });
+  };
+
+  const handleReservationSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission here, e.g., send data to a server
+    console.log('Reservation form submitted:', reservationData);
+    // Add logic for submission or API call
+  };
+
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -83,6 +106,62 @@ const Cafe = () => {
     ))}
   </Slider>
 </div>
+<div className="container mx-auto p-4">
+        <form onSubmit={handleReservationSubmit} className="max-w-md mx-auto bg-white p-8 rounded shadow-md">
+          <h2 className="text-2xl font-bold mb-4">Reservation Form</h2>
+          <div className="mb-4">
+            <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={reservationData.name}
+              onChange={handleReservationChange}
+              className="border border-gray-300 px-3 py-2 rounded w-full focus:outline-none focus:border-blue-500"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="date" className="block text-gray-700 font-bold mb-2">
+              Date
+            </label>
+            {/* Add input for Date */}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="time" className="block text-gray-700 font-bold mb-2">
+              Time
+            </label>
+            {/* Add input for Time */}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="seats" className="block text-gray-700 font-bold mb-2">
+              Number of Seats
+            </label>
+            <input
+              type="number"
+              id="seats"
+              name="seats"
+              value={reservationData.seats}
+              onChange={handleReservationChange}
+              className="border border-gray-300 px-3 py-2 rounded w-full focus:outline-none focus:border-blue-500"
+              min="1"
+              required
+            />
+          </div>
+          <div className="mb-6">
+            <button
+              type="submit"
+              className="bg-orange hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+
+
         {/* React Router Route for Reservation Page */}
         <Routes>
           <Route path={`/:cafeName`} element={<ReservationPage />} />
