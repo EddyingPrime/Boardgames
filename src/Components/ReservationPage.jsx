@@ -1,14 +1,13 @@
 import { useState } from "react";
 
-
-const cafes = ['Cafe A', 'Cafe B', 'Cafe C']; // Replace with your cafe list
+const cafes = ["Cafe A", "Cafe B", "Cafe C"]; // Replace with your cafe list
 
 const ReservationPage = () => {
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedTime, setSelectedTime] = useState('');
-  const [selectedSeat, setSelectedSeat] = useState('');
-  const [selectedCafe, setSelectedCafe] = useState('');
-  const [guestName, setGuestName] = useState('');
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
+  const [selectedSeat, setSelectedSeat] = useState("");
+  const [selectedCafe, setSelectedCafe] = useState("");
+  const [guestName, setGuestName] = useState("");
 
   const handleDateChange = (e) => {
     setSelectedDate(e.target.value);
@@ -32,7 +31,7 @@ const ReservationPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Reservation details:', {
+    console.log("Reservation details:", {
       date: selectedDate,
       time: selectedTime,
       seat: selectedSeat,
@@ -87,9 +86,12 @@ const ReservationPage = () => {
             className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
           />
         </div>
-        
+
         <div className="mb-4">
-          <label htmlFor="guestName" className="block text-sm font-semibold mb-2">
+          <label
+            htmlFor="guestName"
+            className="block text-sm font-semibold mb-2"
+          >
             Guest Name:
           </label>
           <input
