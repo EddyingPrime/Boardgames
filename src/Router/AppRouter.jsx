@@ -11,6 +11,9 @@ import Footer from "../Components/Footer";
 import NotFound from "../Pages/NotFound";
 import Uno from "../Pages/Uno";
 import King from "../Pages/King";
+import ForumList from "../Components/ForumsList";
+import ThreadForm from "../Components/ThreadForm";
+import ThreadDetails from "../Components/ThreadDetails";
 
 export default function AppRouter() {
   return (
@@ -24,6 +27,9 @@ export default function AppRouter() {
             <Routes key="routes">
               <Route index element={<Home />} />
               <Route path="/forums/*" element={<Forums />} />
+              <Route path="/forums/list" element={<ForumList />} />
+              <Route path="/forums/new-thread" element={<ThreadForm />} />
+              <Route path="/forums/:threadId" element={<ThreadDetails />} />
               <Route path="/games" element={<Games />} />
               <Route path="/cafe/*" element={<Cafe />} />
               <Route path="/profile" element={<Profile />} />

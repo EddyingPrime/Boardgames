@@ -1,15 +1,13 @@
 import { useState } from "react";
-import axios from "axios";
-import { useAuth } from "../authentication/useAuth";
+import http from "../Http/http";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const { login } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    rememberMe: false, // New state for Remember Me checkbox
+    rememberMe: false,
   });
 
   const [loading, setLoading] = useState(false);
@@ -23,37 +21,23 @@ export default function Login() {
     });
   };
 
-  const saveToLocalStorage = (data) => {
-    localStorage.setItem("userData", JSON.stringify(data));
-
-    // Check if data.user exists before accessing its properties
-    if (data.user && data.user.name) {
-      // Save other user data if needed
-      localStorage.setItem("userName", data.user.name);
-    }
-
-    localStorage.setItem("token", data.token);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/login",
-        formData
-      );
+      const response = await http().post("/login", formData);
 
       console.log("Login response:", response.data);
 
       if (response.data.token) {
-        login(response.data.token);
+        // Save the token to local storage
+        localStorage.setItem("token", response.data.token);
 
         console.log(response.data.token);
 
         if (response.data.user) {
-          saveToLocalStorage(response.data.user);
-          localStorage.setItem("token", response.data.token);
+          // Save user data to local storage if needed
+          localStorage.setItem("user", JSON.stringify(response.data.user));
         }
 
         navigate("/");
@@ -61,18 +45,21 @@ export default function Login() {
         setError("Invalid email or password. Please try again.");
       }
     } catch (error) {
+      // Handle error
       console.error("Login error:", error);
 
+      // Log additional information from the error object
+      console.log("Error response:", error.response);
+      console.log("Error request:", error.request);
+      console.log("Error message:", error.message);
+
       if (error.response) {
-        // Server returned an error response
         setError(
           error.response.data.message || "An unexpected error occurred."
         );
       } else if (error.request) {
-        // The request was made but no response was received
         setError("Network error. Please check your internet connection.");
       } else {
-        // Something happened in setting up the request
         setError("An unexpected error occurred. Please try again.");
       }
     } finally {

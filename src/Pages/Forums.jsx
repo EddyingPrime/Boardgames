@@ -1,38 +1,62 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import ThreadForm from "../Components/ThreadForm";
 import ThreadDetails from "../Components/ThreadDetails";
-import { useAuth } from "../authentication/useAuth";
+import http from "../Http/http";
 
 const Forums = () => {
-  const { getToken } = useAuth();
   const [threads, setThreads] = useState([]);
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
-  const handleThreadFormSubmit = (newThread) => {
-    const token = getToken();
-    if (token) {
-      // User is logged in, allow thread submission
-      setThreads([...threads, newThread]);
-    } else {
-      // User is not logged in, redirect to login page
-      navigate("/login");
+  useEffect(() => {
+    const fetchThreads = async () => {
+      try {
+        const response = await http().get("/threads");
+        console.log("Threads response:", response);
+        setThreads(response.data.threads);
+      } catch (error) {
+        console.error("Error fetching threads:", error);
+      }
+    };
+
+    fetchThreads();
+  }, []);
+
+  const handleThreadFormSubmit = async (newThread) => {
+    try {
+      if (!user) {
+        console.error("User not logged in.");
+        return;
+      }
+
+      const response = await http().post("/threads", {
+        ...newThread,
+        user_id: user.user_id,
+      });
+
+      console.log("Response from server:", response);
+
+      setThreads((prevThreads) =>
+        prevThreads !== null
+          ? [...prevThreads, response.data.thread]
+          : [response.data.thread]
+      );
+    } catch (error) {
+      console.error("Error creating thread:", error);
     }
   };
 
   const handleUpvote = (threadId) => {
-    if (getToken()) {
-      console.log(`Upvoting thread with ID: ${threadId}`);
-    } else {
-      navigate("/login");
-    }
+    console.log(`Upvoting thread with ID: ${threadId}`);
   };
 
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="container mx-auto p-8">
-        {getToken() && <ThreadForm onSubmit={handleThreadFormSubmit} />}
-        {!getToken() && (
+        <ThreadForm onSubmit={handleThreadFormSubmit} />
+
+        {!localStorage.getItem("token") && (
           <p>
             Please{" "}
             <span
@@ -45,11 +69,11 @@ const Forums = () => {
           </p>
         )}
 
-        {threads.map((thread, index) => (
+        {threads.map((thread) => (
           <ThreadDetails
-            key={index}
+            key={thread.id}
             thread={thread}
-            isAuthenticated={getToken()}
+            isAuthenticated={localStorage.getItem("token")}
             onUpvote={() => handleUpvote(thread.id)}
           />
         ))}

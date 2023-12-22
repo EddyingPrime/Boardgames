@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import http from "../Http/http";
 import { useNavigate } from "react-router-dom";
 
 const RegistrationForm = () => {
@@ -39,24 +39,12 @@ const RegistrationForm = () => {
     clearMessages();
 
     try {
-      const csrfToken = document.head.querySelector(
-        'meta[name="csrf-token"]'
-      ).content;
-      axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
-
-      const response = await axios.post(
-        "http://localhost:8000/api/register",
-        formData
-      );
+      const response = await http().post("/register", formData);
       console.log(response);
       if (response.data.user) {
         // Access user information
         const user = response.data.user;
         console.log("User:", user);
-
-        // Access token
-        const token = response.data.token;
-        console.log("Token:", token);
 
         // Handle success
         setSuccessMessage("Registration successful");

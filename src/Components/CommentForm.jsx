@@ -5,12 +5,11 @@ const CommentForm = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validate input fields if needed
 
-    // Call the onSubmit prop with the comment details
+    console.log("Submitting comment:", comment);
+
     onSubmit(comment);
 
-    // Clear the form field after submission
     setComment("");
   };
 
