@@ -7,6 +7,9 @@ const CommentForm = ({ onSubmit }) => {
     e.preventDefault();
     // Validate input fields if needed
 
+    // Log the comment before calling onSubmit
+    console.log("Submitting comment:", comment);
+
     // Call the onSubmit prop with the comment details
     onSubmit(comment);
 
